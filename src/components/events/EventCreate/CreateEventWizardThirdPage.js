@@ -5,7 +5,7 @@ import renderTextArea from '../../utils/forms/renderTextArea';
 
 const CreateEventWizardThirdPage = ({ handleSubmit, previousPage }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="ui form">
       <div>
         <label>Guests Phone Numbers</label>
         <div>

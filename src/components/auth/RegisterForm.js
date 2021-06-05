@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+import renderField from '../utils/forms/renderField';
+import renderPhoneField from '../utils/forms/renderPhoneField';
 
 class RegisterForm extends Component {
-  renderError = ({ error, touched }) => {
-    if (touched && error) {
-      return (
-        <div className="ui error message">
-          <div className="header">{error}</div>
-        </div>
-      );
-    }
-  };
-
-  renderInput = ({ input, label, meta }) => {
-    const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
-    return (
-      <div className={className}>
-        <label>{label}</label>
-        <input {...input} autoComplete="off" />
-        {this.renderError(meta)}
-      </div>
-    );
-  };
-
   onSubmit = (formValues) => {
     this.props.onSubmit(formValues);
   };
@@ -33,27 +15,25 @@ class RegisterForm extends Component {
         onSubmit={this.props.handleSubmit(this.onSubmit)}
         className="ui form error"
       >
-        <Field
-          name="name"
-          component={this.renderInput}
-          label="Enter Name"
-        ></Field>
-        <Field
-          name="email"
-          component={this.renderInput}
-          label="Enter Email"
-        ></Field>
+        <Field name="name" component={renderField} label="Enter Name"></Field>
+        <Field name="email" component={renderField} label="Enter Email"></Field>
         <Field
           name="password"
-          component={this.renderInput}
+          component={renderField}
           label="Enter Password (8-16 characters, at least 1 number & 1 letter)"
         ></Field>
         <Field
           name="passwordConfirm"
-          component={this.renderInput}
+          component={renderField}
           label="Confirm Password"
         ></Field>
-        <button className="ui button primary">Submit</button>
+        <Field
+          name="phone"
+          component={renderPhoneField}
+          label="Phone"
+          noValidate
+        ></Field>
+        <button className="ui button primary">Register</button>
       </form>
     );
   }
@@ -80,6 +60,12 @@ const validate = (formValues) => {
 
   if (!formValues.passwordConfirm && !errors.password) {
     errors.passwordConfirm = 'Please confirm password';
+  }
+
+  if (!formValues.phone) {
+    errors.phone = 'Please enter your phone';
+  } else if (!isValidPhoneNumber(formValues.phone)) {
+    errors.phone = 'Please provide a valid phone number';
   }
   return errors;
 };

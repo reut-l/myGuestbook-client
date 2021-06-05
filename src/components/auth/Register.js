@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signUp } from '../../actions';
+import { signUp, updateMe } from '../../actions';
 import RegisterForm from './RegisterForm';
 
-const Register = (props) => {
+const Register = ({ signUp }) => {
   const onSubmit = (formValues) => {
-    props.signUp(formValues);
+    formValues.phone = formValues.phone.replace(/ /g, '');
+
+    signUp(formValues);
   };
   return (
     <div>
@@ -15,4 +17,4 @@ const Register = (props) => {
   );
 };
 
-export default connect(null, { signUp })(Register);
+export default connect(null, { signUp, updateMe })(Register);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import WizardForm from '../../utils/forms/WizardForm';
 import CreateEventWizardFirstPage from './CreateEventWizardFirstPage';
 import CreateEventWizardSecondPage from './CreateEventWizardSecondPage';

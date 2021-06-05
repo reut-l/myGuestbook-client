@@ -16,7 +16,7 @@ export const fetchPostsOfEvent = (eventId, term) => async (dispatch) => {
   dispatch({ type: FETCH_POSTS_EVENT, payload: response.data.data.data });
 };
 
-export const fetchMyPosts = async (dispatch, getState) => {
+export const fetchMyPosts = () => async (dispatch, getState) => {
   const user = getState().auth.user._id;
 
   const response = await myGuestBookAPI.get(`/posts/search?user=${user}`);
@@ -24,7 +24,7 @@ export const fetchMyPosts = async (dispatch, getState) => {
   dispatch({ type: FETCH_POSTS_USER, payload: response.data.data.data });
 };
 
-export const fetchMyLikedPosts = async (dispatch, getState) => {
+export const fetchMyLikedPosts = () => async (dispatch, getState) => {
   const user = getState().auth.user._id;
 
   const response = await myGuestBookAPI.get(`/posts/search?likes=${user}`);

@@ -15,6 +15,8 @@ import EventEdit from './events/EventEdit';
 import EventAddPictures from './events/EventAddPictures';
 import PostPicturesSelector from './posts/PostPicturesSelector';
 import PostSelected from './posts/PostSelected';
+import Login from './auth/Login';
+import PhoneAuth from './auth/guestAuth/PhoneAuth';
 
 class App extends React.Component {
   componentDidMount() {
@@ -46,10 +48,16 @@ class App extends React.Component {
                 }
               ></Route>
               <Route path="/register" exact component={Register}></Route>
+              <Route path="/login" exact component={Login}></Route>
               <Route
                 path="/events/new"
                 exact
                 component={CreateEventWizardForm}
+              ></Route>
+              <Route
+                path="/events/:eventId/phoneAuth"
+                exact
+                component={PhoneAuth}
               ></Route>
               <Route
                 path="/events/:eventId/edit/uploadImages"

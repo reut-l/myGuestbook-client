@@ -9,7 +9,7 @@ const renderError = ({ meta: { touched, error } }) =>
 
 const CreateEventWizardSecondPage = ({ handleSubmit, previousPage }) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="ui form">
       <label>When?</label>
       <Field name="date" component={renderDatePicker} />
       <div>

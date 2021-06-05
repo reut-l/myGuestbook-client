@@ -1,4 +1,5 @@
 import rekognition from '../../apis/rekognition';
+import myGuestBookAPI from '../../apis/appServer';
 
 export const recognizeMe = async (blob, collectionName) => {
   const formData = new FormData();
@@ -18,4 +19,15 @@ export const recognizeMe = async (blob, collectionName) => {
   }
 
   return response.data;
+};
+
+export const checkIsGuest = async (eventId, phoneNum) => {
+  let phone = phoneNum.replace(/ /g, '');
+  phone = phone.replace('+', '%2B');
+  const response = await myGuestBookAPI.get(
+    `/events/${eventId}/searchGuest?phone=${phone}`
+  );
+
+  if (response.data.results === 1) return true;
+  return false;
 };

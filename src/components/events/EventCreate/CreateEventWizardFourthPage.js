@@ -31,7 +31,7 @@ const CreateEventWizardFourthPage = ({
   const resetForm = () => setFile('');
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="ui form">
       <Field
         name="imageCover"
         component={renderDropzone}

@@ -1,13 +1,22 @@
-import React from 'react';
+const renderError = ({ error, touched }) => {
+  if (touched && error) {
+    return (
+      <div className="ui error message">
+        <div className="header">{error}</div>
+      </div>
+    );
+  }
+};
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} placeholder={label} type={type} />
-      {touched && error && <span>{error}</span>}
+const renderField = ({ input, label, meta }) => {
+  const className = `field ${meta.error && meta.touched ? 'error' : ''}`;
+  return (
+    <div className={className}>
+      <label>{label}</label>
+      <input {...input} autoComplete="off" />
+      {renderError(meta)}
     </div>
-  </div>
-);
+  );
+};
 
 export default renderField;

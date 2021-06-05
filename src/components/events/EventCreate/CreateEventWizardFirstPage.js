@@ -5,13 +5,8 @@ import renderField from '../../utils/forms/renderField';
 
 const CreateEventWizardFirstPage = ({ handleSubmit }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <Field
-        name="name"
-        type="text"
-        component={renderField}
-        label="Event's Name"
-      />
+    <form onSubmit={handleSubmit} className="ui form">
+      <Field name="name" component={renderField} label="Event's Name" />
       <div>
         <button type="submit" className="next">
           Next

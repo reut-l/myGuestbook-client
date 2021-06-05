@@ -25,7 +25,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
                 alt="event_cover_image"
                 style={{ width: '100%' }}
               />
-              {renderAdminBtns()}
+              {admin && renderAdminBtns()}
             </div>
           </div>
         );
@@ -46,7 +46,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
             >
               {el.name}
             </div>
-            {renderAdminBtns()}
+            {admin && renderAdminBtns()}
           </div>
         </div>
       );
@@ -54,15 +54,12 @@ const EventList = ({ itemsArr, title, admin = false }) => {
   };
 
   const renderAdminBtns = () => {
-    if (admin) {
-      return (
-        <div style={{ textAlign: 'center' }}>
-          <i className="edit icon"></i>
-          <i className="trash icon"></i>
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <i className="edit icon"></i>
+        <i className="trash icon"></i>
+      </div>
+    );
   };
 
   const renderLink = () => {
@@ -76,7 +73,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
       );
     }
     return (
-      <div className="">
+      <div>
         <button
           className="ui button primary"
           onClick={() => setShowEventSelector(!showEventSelector)}
@@ -93,13 +90,13 @@ const EventList = ({ itemsArr, title, admin = false }) => {
       <div>
         <div className="ui container">
           <h1>{title}</h1>
-          {renderLink()}
+          {admin && renderLink()}
           <div className="ui three column grid">{renderList(itemsArr)}</div>
         </div>
       </div>
     );
   }
-  return renderLink();
+  return admin ? renderLink() : null;
 };
 
 export default EventList;

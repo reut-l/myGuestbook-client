@@ -24,14 +24,16 @@ export const checkIsLoggedIn = () => async (dispatch, getState) => {
   if (!response.data.data.isLoggedIn) dispatch({ type: LOG_OUT });
 };
 
-export const login = (email, password) => async (dispatch) => {
-  const response = await myGuestBookAPI.post('/users/login', {
-    email: 'eyal@gmail.com',
-    password: 'test1234',
-  });
+export const login =
+  ({ email, password }) =>
+  async (dispatch) => {
+    const response = await myGuestBookAPI.post('/users/login', {
+      email,
+      password,
+    });
 
-  splitResponseAndDispatch(dispatch, response);
-};
+    splitResponseAndDispatch(dispatch, response);
+  };
 
 export const logout = () => async (dispatch) => {
   const response = await myGuestBookAPI.get('/users/logout');
@@ -42,16 +44,14 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const signUp = (formValues) => async (dispatch, getState) => {
-  const reqObj = formValues;
-
-  const currentEvent = getState().events.currentEvent;
-  if (currentEvent !== null) reqObj.eventsAsGuest = currentEvent;
-
-  const response = await myGuestBookAPI.post('/users/signup', reqObj);
+export const signUp = (formValues) => async (dispatch) => {
+  const response = await myGuestBookAPI.post('/users/signup', formValues);
 
   splitResponseAndDispatch(dispatch, response);
-  history.push('/dashboard');
 };
 
+export const updateMe = (formValues) => async (dispatch) => {
+  const response = await myGuestBookAPI.patch('/users/updateMe', formValues);
 
+  splitResponseAndDispatch(dispatch, response);
+};
