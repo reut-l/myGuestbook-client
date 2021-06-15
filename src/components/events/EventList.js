@@ -25,7 +25,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
                 alt="event_cover_image"
                 style={{ width: '100%' }}
               />
-              {admin && renderAdminBtns()}
+              {admin && renderAdminBtns(el._id)}
             </div>
           </div>
         );
@@ -46,18 +46,22 @@ const EventList = ({ itemsArr, title, admin = false }) => {
             >
               {el.name}
             </div>
-            {admin && renderAdminBtns()}
+            {admin && renderAdminBtns(el._id)}
           </div>
         </div>
       );
     });
   };
 
-  const renderAdminBtns = () => {
+  const renderAdminBtns = (eventId) => {
     return (
       <div style={{ textAlign: 'center' }}>
-        <i className="edit icon"></i>
-        <i className="trash icon"></i>
+        <Link to={`/events/${eventId}/edit`}>
+          <i className="edit icon"></i>
+        </Link>
+        <Link to={`/events/${eventId}/delete`}>
+          <i className="trash icon"></i>
+        </Link>
       </div>
     );
   };
@@ -66,7 +70,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
     if (title === 'Events I Created') {
       return (
         <div>
-          <Link to="/createEvent" className="ui button primary">
+          <Link to="/events/new" className="ui button primary">
             Create Event
           </Link>
         </div>

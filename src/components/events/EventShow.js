@@ -11,11 +11,12 @@ class EventShow extends Component {
   }
 
   render() {
+    const { eventId } = this.props.match.params;
     return (
       <Fragment>
-        <SearchGuests eventId={this.props.match.params.eventId} />
-        <EventCover eventId={this.props.match.params.eventId} />
-        <EventPosts />
+        <SearchGuests eventId={eventId} />
+        <EventCover eventId={eventId} />
+        <EventPosts eventId={eventId} />
       </Fragment>
     );
   }

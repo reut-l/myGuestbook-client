@@ -5,7 +5,7 @@ import 'tui-color-picker/dist/tui-color-picker.css';
 import './imageEditor.css';
 import { dataURLtoBlob, replaceBtns } from './utils';
 
-const CustomImageEditor = ({ onImageSave }) => {
+const CustomImageEditor = ({ onImageSave, initialImage }) => {
   const [pictures, setPictures] = useState(
     localStorage.getItem('postPictures')
       ? JSON.parse(localStorage.getItem('postPictures'))
@@ -50,6 +50,10 @@ const CustomImageEditor = ({ onImageSave }) => {
     'common.bisize.height': '30px',
   };
 
+  const initialImagePath = initialImage
+    ? initialImage
+    : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
   return (
     <>
       <div>
@@ -84,7 +88,7 @@ const CustomImageEditor = ({ onImageSave }) => {
           },
           menuBarPosition: 'top',
           loadImage: {
-            path: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+            path: initialImagePath,
             name: 'Blank',
           },
         }}

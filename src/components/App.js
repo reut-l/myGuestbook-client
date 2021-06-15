@@ -8,15 +8,18 @@ import Welcome from './Welcome';
 import Dashboard from './Dashboard';
 import Register from './auth/Register';
 import EventShow from './events/EventShow';
-import PostCreate from './posts/PostCreate';
-import history from '../history';
 import CreateEventWizardForm from './events/EventCreate/CreateEventWizardForm';
 import EventEdit from './events/EventEdit';
+import EventDelete from './events/EventDelete';
 import EventAddPictures from './events/EventAddPictures';
+import PostCreate from './posts/PostCreate';
+import PostEdit from './posts/PostEdit';
+import PostDelete from './posts/PostDelete';
 import PostPicturesSelector from './posts/PostPicturesSelector';
 import PostSelected from './posts/PostSelected';
 import Login from './auth/Login';
 import PhoneAuth from './auth/guestAuth/PhoneAuth';
+import history from '../history';
 
 class App extends React.Component {
   componentDidMount() {
@@ -70,6 +73,11 @@ class App extends React.Component {
                 component={EventEdit}
               ></Route>
               <Route
+                path="/events/:eventId/delete"
+                exact
+                component={EventDelete}
+              ></Route>
+              <Route
                 path="/events/:eventId/posts/new/selectPictures"
                 exact
                 component={PostPicturesSelector}
@@ -78,6 +86,16 @@ class App extends React.Component {
                 path="/events/:eventId/posts/new"
                 exact
                 component={PostCreate}
+              ></Route>
+              <Route
+                path="/events/:eventId/posts/:postId/edit"
+                exact
+                component={PostEdit}
+              ></Route>
+              <Route
+                path="/events/:eventId/posts/:postId/delete"
+                exact
+                component={PostDelete}
               ></Route>
               <Route
                 path="/events/:eventId"

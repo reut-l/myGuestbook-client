@@ -7,29 +7,32 @@ class EventCover extends Component {
     const { eventId } = this.props;
     this.props.fetchEvent(eventId);
   }
-  render() {
-    if (this.props.currentEvent) {
-      const { currentEvent } = this.props;
-      const imageCover = currentEvent.imageCover.name;
-      const eventName = currentEvent.name;
-      if (imageCover) {
-        return (
-          <section>
-            <div className="inner-block" id="section-0">
-              <h1>{eventName}</h1>
-              <img
-                src={`http://127.0.0.1:3001/img/events/${imageCover}`}
-                alt="event_image_cover"
-              />
-            </div>
-          </section>
-        );
-      }
 
+  render() {
+    const { currentEvent } = this.props;
+    if (currentEvent) {
+      const eventName = currentEvent.name;
+
+      if (currentEvent.imageCover) {
+        const { imageCover } = currentEvent;
+
+        if (imageCover)
+          return (
+            <section>
+              <div className="inner-block" id="section-0">
+                <h1>{eventName}</h1>
+                <img
+                  src={`http://127.0.0.1:3001/img/eventsCovers/${imageCover}`}
+                  alt="event_image_cover"
+                />
+              </div>
+            </section>
+          );
+      }
       return (
         <section>
           <div className="inner-block" id="section-0">
-            <div style={{ height: '200px', textAlign: 'center' }}>
+            <div style={{ height: '70px', textAlign: 'center' }}>
               {eventName}
             </div>
           </div>

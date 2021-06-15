@@ -46,7 +46,7 @@ const CreateEventWizardSecondPage = ({ handleSubmit, previousPage }) => {
         </div>
       </div>
       <label>Where?</label>
-      <LocationSearchInput />
+      <LocationSearchInput form="createEventForm" />
       <Field name="venue" component={renderError} />
       <div>
         <button type="button" className="previous" onClick={previousPage}>
@@ -61,7 +61,7 @@ const CreateEventWizardSecondPage = ({ handleSubmit, previousPage }) => {
 };
 
 export default reduxForm({
-  form: 'createEvent',
+  form: 'createEventForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
   validate,

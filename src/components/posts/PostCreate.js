@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 import CustomImageEditor from '../utils/imageEditor/CustomImageEditor';
 import { createPost } from '../../actions';
 
-const PostCreate = ({ createPost, match }) => {
+const PostCreate = ({
+  createPost,
+  match: {
+    params: { eventId },
+  },
+}) => {
   const onImageSave = (blob) => {
-    const eventId = match.params.eventId;
     createPost(blob, eventId);
   };
 

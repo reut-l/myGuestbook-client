@@ -3,16 +3,17 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import { connect } from 'react-redux';
 import { change } from 'redux-form';
 
-const LocationSearchInput = ({ change }) => {
-  const [address, SetAddress] = useState('');
+const LocationSearchInput = ({ change, initialValue, form }) => {
+  const [address, setAddress] = useState(initialValue ? initialValue : '');
 
   const handleChange = (address) => {
-    SetAddress(address);
-    change('createEvent', 'venue', address);
+    setAddress(address);
+    change(form, 'venue', address);
   };
 
   const handleSelect = (address) => {
-    change('createEvent', 'venue', address);
+    setAddress(address);
+    change(form, 'venue', address);
   };
 
   return (

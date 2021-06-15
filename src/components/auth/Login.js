@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { login } from '../../actions';
 import LoginForm from './LoginForm';
 
-const Login = ({ login, fetchNewEvents }) => {
+const Login = ({ login }) => {
   const onSubmit = (formValues) => {
     login(formValues);
   };

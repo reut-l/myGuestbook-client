@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../utils/forms/renderField';
 
-class LoginForm extends Component {
-  onSubmit = (formValues) => {
-    this.props.onSubmit(formValues);
+const LoginForm = ({ onSubmit, handleSubmit, invalid }) => {
+  const submit = (formValues) => {
+    onSubmit(formValues);
   };
 
-  render() {
-    return (
-      <form
-        onSubmit={this.props.handleSubmit(this.onSubmit)}
-        className="ui form error"
-      >
-        <Field name="email" component={renderField} label="Email"></Field>
-        <Field name="password" component={renderField} label="Password"></Field>
-        <button className="ui button primary">Log In</button>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleSubmit(submit)} className="ui form error">
+      <Field name="email" component={renderField} label="Email"></Field>
+      <Field name="password" component={renderField} label="Password"></Field>
+      <button className="ui button primary" disabled={invalid}>
+        Log In
+      </button>
+    </form>
+  );
+};
 
 const validate = (formValues) => {
   const errors = {};

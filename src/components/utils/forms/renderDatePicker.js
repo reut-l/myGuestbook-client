@@ -5,7 +5,7 @@ const renderDatePicker = ({ input, placeholder, minDate, maxDate }) => (
   <DatePicker
     className="plus-icon"
     dateFormat="dd/MM/yyyy"
-    selected={input.value || null}
+    selected={input.value ? new Date(input.value) : null}
     onChange={input.onChange}
     minDate={minDate}
     maxDate={maxDate}

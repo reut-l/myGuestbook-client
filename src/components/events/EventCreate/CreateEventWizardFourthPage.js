@@ -14,10 +14,10 @@ const CreateEventWizardFourthPage = ({
   const [file, setFile] = useState('');
 
   useEffect(() => {
-    change('createEvent', 'imageCover', file);
+    change('createEventForm', 'imageCover', file);
   }, [file]);
 
-  const handleOnDrop = (newImageFile, onChange) => {
+  const handleOnDrop = (newImageFile) => {
     const imageFile = {
       file: newImageFile[0],
       name: newImageFile[0].name,

@@ -4,6 +4,8 @@ import {
   FETCH_EVENT,
   CREATE_EVENT,
   LOG_OUT,
+  EDIT_EVENT,
+  DELETE_EVENT,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -38,6 +40,19 @@ export default (state = INITIAL_STATE, action) => {
           ...state.eventsAsCreator,
           [action.payload._id]: action.payload,
         },
+      };
+    case EDIT_EVENT:
+      return {
+        ...state,
+        eventsAsCreator: {
+          ...state.eventsAsCreator,
+          [action.payload._id]: action.payload,
+        },
+      };
+    case DELETE_EVENT:
+      return {
+        ...state,
+        eventsAsCreator: _.omit(state.eventsAsCreator, action.payload),
       };
     case LOG_OUT:
       return {
