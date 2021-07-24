@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CSSTransition } from 'react-transition-group';
 
-const SearchGuests = ({ search, placeholder }) => {
+const Search = ({ search, placeholder, iconClass }) => {
   const [term, setTerm] = useState('');
   const [debouncedTerm, setDebouncedTrem] = useState(term);
 
@@ -19,20 +21,30 @@ const SearchGuests = ({ search, placeholder }) => {
   }, [debouncedTerm]);
 
   return (
-    <div className="ui form">
-      <div className="field">
-        <i className="search icon"></i>
+    <div>
+      <div className={iconClass}>
+        <FontAwesomeIcon icon="search" className="search-icon" />
         <input
           type="text"
           className="input"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
           placeholder={`${placeholder}...`}
-          style={{ width: '400px', display: 'inline-block' }}
         />
       </div>
+      <CSSTransition
+        in={true}
+        timeout={5000}
+        classNames="search-field-msg-transition"
+        unmountOnExit
+        appear
+      >
+        <div className="search-msg">
+          Try searching by name, phone or even email
+        </div>
+      </CSSTransition>
     </div>
   );
 };
 
-export default SearchGuests;
+export default Search;

@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { connect } from 'react-redux';
-import { change } from 'redux-form';
 
-const LocationSearchInput = ({ change, initialValue, form }) => {
-  const [address, setAddress] = useState(initialValue ? initialValue : '');
+const renderError = ({ error, touched }) => {
+  if (touched && error) return <div className="error">{error}</div>;
+};
 
-  const handleChange = (address) => {
-    setAddress(address);
-    change(form, 'venue', address);
-  };
-
-  const handleSelect = (address) => {
-    setAddress(address);
-    change(form, 'venue', address);
-  };
-
+const renderLocationSearch = ({
+  input,
+  meta,
+  placeholder,
+  onPlaceFocus,
+  onPlaceBlur,
+  underlineRef,
+}) => {
   return (
-    <PlacesAutocomplete
-      value={address}
-      onChange={handleChange}
-      onSelect={handleSelect}
-    >
+    <PlacesAutocomplete {...input}>
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-        <div>
+        <div className="places-autocomplete-box">
           <input
             {...getInputProps({
-              placeholder: 'Venue or Address...',
+              placeholder: `${placeholder}...`,
               className: 'location-search-input',
+              onFocus: onPlaceFocus,
+              onBlur: onPlaceBlur,
             })}
           />
-          <div className="autocomplete-dropdown-container">
+          <span ref={underlineRef} className="underline"></span>
+          {renderError(meta)}
+          <div
+            className={`autocomplete-dropdown-container ${
+              suggestions.length > 0 ? 'open-dropdown' : ''
+            }`}
+          >
             {loading && <div>Loading...</div>}
             {suggestions.map((suggestion) => {
               const className = suggestion.active
@@ -58,4 +58,4 @@ const LocationSearchInput = ({ change, initialValue, form }) => {
   );
 };
 
-export default connect(null, { change })(LocationSearchInput);
+export default renderLocationSearch;

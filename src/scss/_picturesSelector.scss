@@ -1,0 +1,36 @@
+.pictures-selector-container {
+    width:90%;
+    max-width: 1000px;
+    position:relative;
+    margin: auto;
+    text-align: center;
+
+        h1 {
+         font-size: 1.1rem;
+          font-weight: 600;
+        }
+        h3 {
+            font-weight: 500;
+            margin: 10px 0;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+
+    .images-display-container {
+        margin-top: 15px;
+
+        h1 {
+            margin-bottom: 15px;
+        }
+        .continue-btn{
+            font-size: 1.2rem;
+            display:block;
+            margin: 15px auto;
+            width:fit-content;
+            position:relative;
+
+        }
+    }
+}

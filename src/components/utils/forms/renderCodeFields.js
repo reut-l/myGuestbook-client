@@ -12,10 +12,10 @@ const renderError = ({ error }) => {
   }
 };
 
-const handleChange = (event, onChange, inputsRef, fieldIndex) => {
+const handleChange = async (event, onChange, inputsRef, fieldIndex, submit) => {
   const { maxLength, value } = event.target;
 
-  onChange(value);
+  await onChange(value);
 
   if (value.length === maxLength) {
     if (fieldIndex < 5) {
@@ -28,7 +28,7 @@ const handleChange = (event, onChange, inputsRef, fieldIndex) => {
       const field = inputsRef.current[fieldIndex];
 
       if (field !== null) {
-        field.blur();
+        submit('registerForm');
       }
     }
   }
@@ -41,19 +41,12 @@ const renderInsertField = ({
   fieldName,
   inputIndex,
   inputsRef,
+  submit,
 }) => {
   const [name, fieldIndex] = fieldName.split('-');
   let fieldIntIndex = parseInt(fieldIndex, 10);
   return (
-    <div
-      style={{
-        display: 'inline-block',
-        width: '38px',
-        height: '40px',
-        textAlign: 'center',
-        marginRight: '5px',
-      }}
-    >
+    <div className="code-form-field">
       <input
         value={value}
         type={type}
@@ -61,15 +54,16 @@ const renderInsertField = ({
         maxLength="1"
         ref={(input) => (inputsRef.current[inputIndex] = input)}
         onChange={(event) =>
-          handleChange(event, onChange, inputsRef, fieldIntIndex)
+          handleChange(event, onChange, inputsRef, fieldIntIndex, submit)
         }
         autoFocus={fieldIntIndex === 0}
+        className="code-form-input"
       />
     </div>
   );
 };
 
-const renderCodeFields = ({ fields, meta, inputsRef }) => (
+const renderCodeFields = ({ fields, meta, inputsRef, submit }) => (
   <div>
     {fields.map((insert, i) => (
       <Field
@@ -81,6 +75,7 @@ const renderCodeFields = ({ fields, meta, inputsRef }) => (
         fieldName={`insert-${i}`}
         inputIndex={i}
         inputsRef={inputsRef}
+        submit={submit}
       />
     ))}
     {renderError(meta)}

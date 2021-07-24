@@ -9,9 +9,9 @@ const renderDropzone = ({
   handleOnDrop,
   input: { onChange },
   imagefile,
-  meta: { error, touched },
+  meta,
 }) => (
-  <div className="preview-container">
+  <div className="dropzone-box">
     <Dropzone
       accept="image/jpeg, image/png, image/gif, image/bmp"
       className="upload-container"
@@ -22,15 +22,14 @@ const renderDropzone = ({
           <ImagePreview imagefile={imagefile} />
         ) : (
           <Placeholder
-            error={error}
-            touched={touched}
+            meta={meta}
             getInputProps={getInputProps}
             getRootProps={getRootProps}
           />
         )
       }
     </Dropzone>
-    <ShowError error={error} touched={touched} />
+    <ShowError meta={meta} />
   </div>
 );
 

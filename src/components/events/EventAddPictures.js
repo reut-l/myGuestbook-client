@@ -10,14 +10,13 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const FileUpload = (props) => {
+const EventAddPictures = (props) => {
   const [state, setState] = useState([]);
-  //const classes = useStyles({})
 
   const eventId = props.match.params.eventId;
   return (
-    <div>
-      <section id="upload">
+    <div className="middle-container">
+      <div className="uploadEventPicturesArea">
         <FilePond
           files={state}
           allowMultiple={true}
@@ -26,9 +25,9 @@ const FileUpload = (props) => {
             setState(items.map((item) => item.file));
           }}
         />
-      </section>
-      <div>
-        <Link to={`/`} className="ui primary button">
+      </div>
+      <div className="btns-box">
+        <Link to={`/`} className="btn btn-action">
           Complete
         </Link>
       </div>
@@ -36,4 +35,4 @@ const FileUpload = (props) => {
   );
 };
 
-export default FileUpload;
+export default EventAddPictures;

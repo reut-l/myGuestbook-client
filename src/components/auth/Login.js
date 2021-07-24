@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { login } from '../../actions';
 import LoginForm from './LoginForm';
 
-const Login = ({ login }) => {
+const Login = ({ login, location }) => {
+  const { sourcePath } = location.state ? location.state : '/';
+
   const onSubmit = (formValues) => {
-    login(formValues);
+    login(formValues, sourcePath);
   };
+
   return (
     <div>
-      <h2>Log In</h2>
       <LoginForm onSubmit={onSubmit} />
     </div>
   );

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import myGuestBookAPI from '../apis/appServer';
 import {
   FETCH_POST,
@@ -9,7 +10,6 @@ import {
   DELETE_POST,
   LIKE_POST,
   UNLIKE_POST,
-  LOADED_MY_POSTS,
 } from './types';
 import history from '../history';
 
@@ -19,13 +19,18 @@ export const fetchPost = (postId) => async (dispatch) => {
   dispatch({ type: FETCH_POST, payload: response.data.data.data });
 };
 
-export const fetchPostsOfEvent = (eventId, term) => async (dispatch) => {
-  const response = await myGuestBookAPI.get(
-    `/posts/search?event=${eventId}&term=${term}`
-  );
+export const fetchPostsOfEvent =
+  (eventId, term = '') =>
+  async (dispatch) => {
+    const response = await myGuestBookAPI.get(
+      `/posts/search?event=${eventId}&term=${term}`
+    );
+    const filteredResponse = response.data.data.data.map((e) =>
+      _.omit(e, ['likes'])
+    );
 
-  dispatch({ type: FETCH_POSTS_EVENT, payload: response.data.data.data });
-};
+    dispatch({ type: FETCH_POSTS_EVENT, payload: filteredResponse });
+  };
 
 export const fetchMyPosts = () => async (dispatch, getState) => {
   const user = getState().auth.user._id;
@@ -41,7 +46,6 @@ export const fetchMyLikedPosts = () => async (dispatch, getState) => {
   const response = await myGuestBookAPI.get(`/posts/search?likes=${user}`);
 
   dispatch({ type: FETCH_POSTS_USER_LIKED, payload: response.data.data.data });
-  dispatch({ type: LOADED_MY_POSTS });
 };
 
 export const updatePostImage =
@@ -84,16 +88,16 @@ export const deletePost = (postId, eventId) => async (dispatch) => {
   history.push(`/events/${eventId}`);
 };
 
-export const like = (post) => async (dispatch) => {
-  const response = await myGuestBookAPI.patch(`/posts/${post._id}/like`);
+export const like = (postId) => async (dispatch) => {
+  const response = await myGuestBookAPI.patch(`/posts/${postId}/like`);
 
   if (response.data.status === 'success')
     dispatch({ type: LIKE_POST, payload: response.data.data.data });
 };
 
-export const unlike = (post) => async (dispatch) => {
-  const response = await myGuestBookAPI.patch(`/posts/${post._id}/unlike`);
+export const unlike = (postId) => async (dispatch) => {
+  const response = await myGuestBookAPI.patch(`/posts/${postId}/unlike`);
 
   if (response.data.status === 'success')
-    dispatch({ type: UNLIKE_POST, payload: response.data.data.data });
+    dispatch({ type: UNLIKE_POST, payload: response.data.data.data._id });
 };

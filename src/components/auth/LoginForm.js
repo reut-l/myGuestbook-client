@@ -2,19 +2,40 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../utils/forms/renderField';
 
-const LoginForm = ({ onSubmit, handleSubmit, invalid }) => {
+const LoginForm = ({
+  onSubmit,
+  handleSubmit,
+  pristine,
+  submitting,
+  invalid,
+}) => {
   const submit = (formValues) => {
     onSubmit(formValues);
   };
 
+  const disabled = pristine || submitting || invalid;
+
   return (
-    <form onSubmit={handleSubmit(submit)} className="ui form error">
-      <Field name="email" component={renderField} label="Email"></Field>
-      <Field name="password" component={renderField} label="Password"></Field>
-      <button className="ui button primary" disabled={invalid}>
-        Log In
-      </button>
-    </form>
+    <div className="auth-form-container">
+      {/* {alert && renderAlert()} */}
+      <form onSubmit={handleSubmit(submit)} className="auth-form">
+        <div className="first-box">
+          <Field name="email" component={renderField} label="Email"></Field>
+          <Field
+            name="password"
+            component={renderField}
+            label="Password"
+            type="password"
+          ></Field>
+          <button
+            className={`submit-btn btn-action ${disabled ? 'disabled' : ''}`}
+            disabled={disabled}
+          >
+            Log in
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

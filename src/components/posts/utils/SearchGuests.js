@@ -9,10 +9,13 @@ const SearchGuests = ({ fetchPostsOfEvent, eventId }) => {
   };
 
   return (
-    <Search
-      search={search}
-      placeholder="search guests (by name, phone or even email)"
-    />
+    <div className="search-container">
+      <Search
+        search={search}
+        placeholder="search guests"
+        iconClass="search-post-field right-btn"
+      />
+    </div>
   );
 };
 

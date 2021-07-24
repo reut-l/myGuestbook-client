@@ -1,0 +1,464 @@
+form {
+    position:relative;
+    width:220px;
+    margin:auto;
+
+.error-field {
+    position: relative;
+}
+
+.error-field::before {
+    content: "";
+    display: block;
+    width: 215px;
+    height: 40px;
+    border: 2px solid $warning-color;
+    border-radius: 8px;
+    position:absolute;
+    top:10px;
+    opacity: .4;
+ }
+
+ .error-field:first-child::before {
+  position: absolute;
+  top:45px;
+ }
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #AAA;
+    color: #000;
+    box-sizing: border-box;
+    font-family: $text-font;
+    font-size: 1rem;
+    font-weight: 600;
+    height: 50px;
+    margin: auto;
+    padding-top: 10px;
+    position: relative;
+    width: 200px;
+    display: block;
+  
+    &:focus {
+      outline: none;    
+    }
+  }
+
+  
+  input::-webkit-input-placeholder {
+    color: #AAA;
+  }
+  
+  input:focus::-webkit-input-placeholder {
+    color:$action-color;
+  }
+  
+  input:focus+.underline {
+    transform: scale(1);
+  }
+
+  .underline {
+    background-color: $action-color;
+    display: block;
+    height: 2px;
+    margin:auto;
+    transform: scale(0, 1);
+    transition: all 0.5s linear;
+    width: 202px;
+  }
+
+  
+  .radio-box {
+    line-height: 40px;
+    margin-bottom: 55px;
+    .radio-label {
+      position:absolute;
+      // top:-15px;
+      // display: block;
+  
+      input[type="radio"] {
+        width:fit-content;
+        display:inline;
+        // position:relative;
+        // top:18px;
+        // float: left;
+      }
+  
+      p {
+        display:inline;
+        position:relative;
+        top:-20px;
+      }
+
+    }
+  }
+  
+
+textarea {
+  display:block;
+  max-width: 220px;
+  position:relative;
+  margin:auto;
+  border-radius: 8px;
+
+  &:focus {
+    border:2px solid $action-color;
+    outline: none;
+  }
+}
+
+  .notes {
+    font-size: 0.7rem;
+  }
+
+  .error {
+    font-size: 0.8rem;
+    color:$warning-color;
+    
+}
+
+  .register-sms-btn {
+      padding:4px;
+      font-size: 0.85rem;
+      border-radius: 5px;
+  }
+
+  .submit-btn {
+      font-size: 1.1rem;
+      width: fit-content;
+      padding: 10px 15px;
+      border-radius: 8px;
+  }
+
+  .next-btn {
+    display: block;
+    width:fit-content;
+  }
+
+  .form-navigation-container {
+    position:relative;
+    width:fit-content;
+    left: 50%;
+    transform: translateX(-70%);
+    .next-btn, .prev-btn {
+      display: inline-block;
+      top:0;
+    }
+  }
+}
+
+.auth-form {
+  .first-box {
+    position: relative;
+    top:10px;
+  }   
+.second-box {
+  position: relative;
+  top:-25px;
+  line-height: 15px;
+}
+
+  .notes {
+    position:relative;
+    left:10px;
+  }
+
+  .error {
+    position:relative;
+    left:10px;
+}
+
+  .eye-icon {
+      position: relative;
+      top:20px;
+      left:230px
+  }
+
+  .register-sms-btn {
+      position:relative;
+      left:180px;
+      top:-30px;
+  }
+
+  .submit-btn {
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      margin-top: 10px;
+  }
+
+  .next-btn {
+    position:relative;
+    margin:auto;
+    top:-15px;
+  }
+}
+
+.create-event-form, .edit-event-form {
+  
+  &>label:not(:first-child) {
+    margin-top: 10px;
+    display: inline-block;
+  }
+
+  .datepicker-box{
+    position: relative;
+    top:-15px;
+
+    .underline {
+      position:relative;
+      top:-1px;
+      left:-8px;
+    }
+  }
+  
+  .places-autocomplete-box {
+    position:relative;
+    top:-15px;
+    left:-10px;
+
+    .open-dropdown {
+      border:1px solid #666;
+      padding:5px;
+      border-radius: 8px;
+      position: relative;
+      top:5px;
+      background-color: #fff;
+    }
+  }
+
+  .next-btn {
+    position:relative;
+    margin:auto;
+    top:15px;
+    width: fit-content;
+  }
+
+}
+
+.event-form-guests-phones {
+  position:relative;
+  top:10px;
+
+  label {
+    position:relative;
+    top: -10px;;
+  }
+
+  .next-btn {
+    position:relative;
+    margin:auto;
+    top:15px;
+    width: fit-content;
+  }
+  .form-navigation-container {
+    top:15px;
+  }
+
+}
+
+.event-form-cover-image {
+  width:100%;
+  
+  .dropzone-box {
+    width:210px;
+    border:1px solid #000;
+    border-radius: 8px;
+    position:relative;
+    margin:auto;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  
+
+.dropzone-placeholder {
+  text-align: center;;
+  .upload-icon {
+    font-size: 3rem;
+    padding:30px;
+  }
+}
+
+.dropbox-preview {
+  .image-container{
+    margin:0;
+    display: inline;
+    float:none;
+
+    img {
+      width:100%;
+    }
+  }
+}
+
+.clear-btn-box {
+  margin-top: 10px;
+  text-align: center;
+
+  button {
+    border-color: $primary-color;
+    color:$primary-color;
+    font-weight:500;
+  }
+}
+
+.form-navigation-container-submition {
+  text-align: center;
+  margin-top: 30px;
+
+  .submit-btn {
+    margin-top: 15px;
+  }
+}
+
+}
+
+.edit-event-form {
+
+  .edit-form-label {
+    position: relative;
+    width:fit-content;
+    margin:auto;
+  }
+
+  .btns-box {
+    width:fit-content;
+    position:relative;
+    margin:auto;
+    text-align: center;
+
+    button {
+      margin:15px 10px 25px;
+    }
+  }
+
+  .event-form-cover-image {
+    .dropzone-box {
+      margin: 10px 0;
+    }
+
+  }
+
+  .datepicker-box{
+    position: relative;
+    width:fit-content;
+    margin:auto;
+    top:0;
+
+    .underline {
+      position:relative;
+      top:-1px;
+      left:0;
+    }
+  }
+  
+  .places-autocomplete-box {
+    position:relative;
+    top:-5px;
+    left:0;
+
+    .open-dropdown {
+      border:1px solid #666;
+      padding:5px;
+      border-radius: 8px;
+      position: relative;
+      top:5px;
+      background-color: #fff;
+    }
+  }
+}
+
+.cover-image-preview-box {
+  text-align: center;
+  img {
+    width:130px;
+  }
+  button {
+    border-color: $primary-color;
+    color:$primary-color;
+    font-weight:500;
+  }
+}
+
+.code-form{
+        
+       h3 {
+            color:$action-color;
+            text-align: center;
+        }
+        p {
+            font-size: 0.8rem;
+            color:#000;
+            text-align: left;
+            margin-top: 8px;
+        }
+        .resend-btn {
+            position:relative;
+            left:150px;
+            top:-27px;
+            font-size: .8rem;
+            background-color: transparent;
+            border:none;
+            text-decoration: underline;
+            color:$warning-color;
+        }
+        .verify-btn{
+            position:absolute;
+            left:50%;
+            transform: translateX(-50%);
+            margin:auto;
+        }
+        .code-form-field {
+            display: inline-block;
+                .code-form-input {
+                    width: 30px;
+                    text-align: center;
+                    margin-left: 5px;
+                }
+            }
+}
+.alert-warning {
+  color:#FFF;
+  font-weight: 600;
+  background-color:$warning-color;
+  border: 1px solid $warning-color;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  width: fit-content;
+  position: relative;
+  margin: auto;
+  padding:5px 8px;
+}
+
+.upload-event-pictures-box{
+  margin:0 auto 70px;
+  position: relative;
+  width:fit-content;
+  top:15px;
+
+  .upload-event-pictures-btn {
+    font-size: 1.1rem;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+}
+
+.edit-event-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.uploadEventPicturesArea {
+  width:90%;
+  position:relative;
+  margin:auto;
+}
+
+.btns-box{
+  width:fit-content;
+  position:relative;
+  margin:25px auto;
+}

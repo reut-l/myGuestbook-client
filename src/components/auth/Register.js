@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signUp, updateMe } from '../../actions';
+import { signUp } from '../../actions';
 import RegisterForm from './RegisterForm';
 
 const Register = ({ signUp }) => {
@@ -17,4 +17,4 @@ const Register = ({ signUp }) => {
   );
 };
 
-export default connect(null, { signUp, updateMe })(Register);
+export default connect(null, { signUp })(Register);

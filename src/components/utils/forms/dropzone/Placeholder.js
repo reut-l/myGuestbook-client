@@ -1,13 +1,17 @@
 import React from 'react';
-import { MdCloudUpload } from 'react-icons/md';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Placeholder = ({ getInputProps, getRootProps, error, touched }) => (
+const Placeholder = ({
+  getInputProps,
+  getRootProps,
+  meta: { error, touched },
+}) => (
   <div
     {...getRootProps()}
-    className={`placeholder-preview ${error && touched ? 'has-error' : ''}`}
+    className={`dropzone-placeholder ${error && touched ? 'error' : ''}`}
   >
     <input {...getInputProps()} />
-    <MdCloudUpload style={{ fontSize: 100, paddingTop: 85 }} />
+    <FontAwesomeIcon icon="cloud-upload-alt" className="upload-icon" />
     <p>Click or drag image file to this area to upload.</p>
   </div>
 );

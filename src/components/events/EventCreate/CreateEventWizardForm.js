@@ -18,12 +18,14 @@ const CreateEventWizardForm = ({ createEvent }) => {
     createEvent(formValues);
   };
   return (
-    <WizardForm onSubmit={onSubmit}>
-      <CreateEventWizardFirstPage />
-      <CreateEventWizardSecondPage />
-      <CreateEventWizardThirdPage />
-      <CreateEventWizardFourthPage />
-    </WizardForm>
+    <div className="middle-container">
+      <WizardForm onSubmit={onSubmit}>
+        <CreateEventWizardFirstPage />
+        <CreateEventWizardSecondPage />
+        <CreateEventWizardThirdPage />
+        <CreateEventWizardFourthPage />
+      </WizardForm>
+    </div>
   );
 };
 

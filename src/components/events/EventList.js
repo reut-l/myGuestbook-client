@@ -1,90 +1,78 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import EventSelector from './fields/EventSelector';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import EventSelector from './fields/EventSelector';
 
 const EventList = ({ itemsArr, title, admin = false }) => {
-  const [showEventSelector, setShowEventSelector] = useState(false);
+  // const [showEventSelector, setShowEventSelector] = useState(false);
   const itemsRef = useRef([]);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, itemsArr.length);
   }, [itemsArr]);
 
+  const toggleMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
+
   const renderList = (itemsArr) => {
     return itemsArr.map((el, i) => {
       if (el.imageCover) {
         return (
-          <div
-            className="column"
-            ref={(el) => (itemsRef.current[i] = el)}
-            key={i}
-          >
-            <div className="ui segment">
+          <Link to={`/events/${el._id}`}>
+            <div
+              ref={(el) => (itemsRef.current[i] = el)}
+              key={i}
+              className="grid-item"
+            >
               <img
                 src={`http://127.0.0.1:3001/img/eventsCovers/${el.imageCover}`}
                 alt="event_cover_image"
-                style={{ width: '100%' }}
               />
               {admin && renderAdminBtns(el._id)}
             </div>
-          </div>
+          </Link>
         );
       }
       return (
-        <div
-          className="column"
-          key={i}
-          ref={(el) => (itemsRef.current[i] = el)}
-        >
-          <div className="ui segment">
-            <div
-              style={{
-                lineHeight: '300px',
-                backgroundColor: 'grey',
-                textAlign: 'center',
-              }}
-            >
-              {el.name}
-            </div>
+        <Link to={`/events/${el._id}`}>
+          <div
+            key={i}
+            ref={(el) => (itemsRef.current[i] = el)}
+            className="grid-item"
+          >
+            <table className="without-cover-photo">
+              <tbody>
+                <tr>
+                  <td>{el.name}</td>
+                </tr>
+              </tbody>
+            </table>
             {admin && renderAdminBtns(el._id)}
           </div>
-        </div>
+        </Link>
       );
     });
   };
 
   const renderAdminBtns = (eventId) => {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <Link to={`/events/${eventId}/edit`}>
-          <i className="edit icon"></i>
-        </Link>
-        <Link to={`/events/${eventId}/delete`}>
-          <i className="trash icon"></i>
-        </Link>
-      </div>
-    );
-  };
-
-  const renderLink = () => {
-    if (title === 'Events I Created') {
-      return (
-        <div>
-          <Link to="/events/new" className="ui button primary">
-            Create Event
+      <div className="item-menu-dropdown">
+        <button onClick={(e) => toggleMenu(e)}>
+          <FontAwesomeIcon icon="ellipsis-h" className="menu-icon" />
+        </button>
+        <div className="item-menu-dropdown-content">
+          <Link to={`/events/${eventId}/edit`}>
+            <FontAwesomeIcon icon="cog" className="admin-btn settings-icon" />
+            <span>Settings</span>
+          </Link>
+          <Link to={`/events/${eventId}/delete`}>
+            <FontAwesomeIcon icon="trash" className="admin-btn delete-icon" />
+            <span>Delete</span>
           </Link>
         </div>
-      );
-    }
-    return (
-      <div>
-        <button
-          className="ui button primary"
-          onClick={() => setShowEventSelector(!showEventSelector)}
-        >
-          Find Event
-        </button>
-        <EventSelector show={showEventSelector} />
       </div>
     );
   };
@@ -92,15 +80,12 @@ const EventList = ({ itemsArr, title, admin = false }) => {
   if (itemsArr.length > 0) {
     return (
       <div>
-        <div className="ui container">
-          <h1>{title}</h1>
-          {admin && renderLink()}
-          <div className="ui three column grid">{renderList(itemsArr)}</div>
-        </div>
+        <h1 className="dashboard-title">{title}</h1>
+        <div className="grid-container">{renderList(itemsArr)}</div>
       </div>
     );
   }
-  return admin ? renderLink() : null;
+  return null;
 };
 
 export default EventList;

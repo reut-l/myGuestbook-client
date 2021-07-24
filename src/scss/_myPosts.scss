@@ -1,0 +1,60 @@
+.my-posts-body {
+    position: relative;
+    top:15px;
+    .event-container{
+        h2{
+            width:fit-content;
+            display: block;
+            position:relative;
+            margin:auto;
+            text-align: center;
+            
+        }
+
+        .grid-container{
+        &::after {
+            content: "";
+            width:250px;
+            height:1px;
+            background-color: #666;
+        }
+
+    .img-menu-dropdown {
+        filter: none;
+        
+        button {
+            color:$primary-color;
+        }
+
+        .img-menu-dropdown-content {
+            top:-70px;
+            z-index:1;
+        }
+    }
+
+    .likes-btn-container {
+        width:fit-content;
+        position: relative;
+        margin:auto;
+
+        button {
+            color:$primary-color;
+            background-color: transparent;
+            border:none;
+        }
+    }
+}
+ }
+    &:last-child .grid-container::after{
+    display: none;
+}
+ 
+}
+
+.my-posts-header {
+    button {
+        background-color:transparent;
+        border:none;
+        font-size: 0.9rem;
+    }
+}

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { isValidPhoneNumber } from 'react-phone-number-input';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import renderField from '../utils/forms/renderField';
 import renderPhoneField from '../utils/forms/renderPhoneField';
 import CodeForm from './guestAuth/CodeForm';
@@ -10,6 +11,8 @@ import { getCode } from '../utils/utils';
 const RegisterForm = ({ onSubmit, handleSubmit, invalid, phoneNumber }) => {
   const [stageOneCompleted, setStageOneCompleted] = useState(false);
   const [stageTwoCompleted, setStageTwoCompleted] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const phoneFieldUnderlineRef = useRef();
 
   let phone = phoneNumber ? phoneNumber.replace(/ /g, '') : '';
   phone = phone.match(/^[0-9]/) ? '+' + phone : phone;
@@ -22,66 +25,88 @@ const RegisterForm = ({ onSubmit, handleSubmit, invalid, phoneNumber }) => {
     if (smsSent) setStageOneCompleted(true);
   };
 
-  const disabled = {
-    opacity: '0.5',
-    pointerEvents: 'none',
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
   };
 
-  const style = stageOneCompleted && !stageTwoCompleted ? disabled : {};
+  const underline = (fieldName, show) => {
+    const underline = eval(`${fieldName}FieldUnderlineRef`).current;
+    underline.style.transform = show ? 'scale(1)' : 'scale(0,1)';
+  };
+
+  const disabledSMSBtn = phone.length !== 13;
+  const disabledSubmitBtn =
+    (invalid && !stageTwoCompleted) || !stageOneCompleted;
 
   return (
     <div>
       <div>
-        <form
-          onSubmit={handleSubmit(submit)}
-          className="ui form error"
-          style={style}
-        >
-          <Field name="name" component={renderField} label="Enter Name"></Field>
-          <Field
-            name="email"
-            component={renderField}
-            label="Enter Email"
-          ></Field>
-          <Field
-            name="password"
-            component={renderField}
-            label="Enter Password (8-16 characters, at least 1 number & 1 letter)"
-          ></Field>
-          <Field
-            name="passwordConfirm"
-            component={renderField}
-            label="Confirm Password"
-          ></Field>
-          <Field
-            name="phone"
-            component={renderPhoneField}
-            label="Phone"
-          ></Field>
+        <form onSubmit={handleSubmit(submit)}>
+          <div className={stageOneCompleted ? 'disabled' : ''}>
+            <Field name="name" component={renderField} label="Name"></Field>
+            <Field
+              name="email"
+              component={renderField}
+              label="Email address"
+            ></Field>
+
+            <FontAwesomeIcon
+              icon={passwordShown ? 'eye-slash' : 'eye'}
+              className="eye-icon"
+              onClick={togglePasswordVisiblity}
+              opacity={0.7}
+            />
+            <Field
+              name="password"
+              component={renderField}
+              label="Password"
+              type={passwordShown ? 'text' : 'password'}
+              notes="8-16 characters, at least one number & one letter"
+            ></Field>
+            <Field
+              name="passwordConfirm"
+              component={renderField}
+              label="Confirm Password"
+              type="password"
+            ></Field>
+            <Field
+              name="phone"
+              component={renderPhoneField}
+              label="Phone"
+              onPhoneFocus={() => underline('phone', true)}
+              onPhoneBlur={() => underline('phone', false)}
+              underlineRef={phoneFieldUnderlineRef}
+            ></Field>
+
+            <button
+              className={`register-sms-btn btn-action ${
+                disabledSMSBtn ? 'disabled' : ''
+              }`}
+              disabled={disabledSMSBtn}
+              type="button"
+              onClick={sendSMS}
+            >
+              Send SMS
+            </button>
+          </div>
           <button
-            className="ui button primary"
-            disabled={phone.length !== 13}
-            type="button"
-            onClick={sendSMS}
-          >
-            Send SMS
-          </button>
-          <br />
-          <button
-            className="ui button primary"
-            disabled={(invalid && !stageTwoCompleted) || !stageOneCompleted}
+            className={`submit-btn btn-action ${
+              disabledSubmitBtn ? 'disabled' : ''
+            } ${!stageOneCompleted || !stageTwoCompleted ? 'hided' : ''}`}
+            disabled={disabledSubmitBtn}
           >
             Register
           </button>
         </form>
       </div>
       <div>
-        {stageOneCompleted && (
-          <CodeForm
-            setStageTwoCompleted={setStageTwoCompleted}
-            origin="register"
-          />
-        )}
+        <CodeForm
+          stageOneCompleted={stageOneCompleted}
+          setStageOneCompleted={setStageOneCompleted}
+          stageTwoCompleted={stageTwoCompleted}
+          setStageTwoCompleted={setStageTwoCompleted}
+          origin="register"
+        />
       </div>
     </div>
   );
@@ -108,6 +133,12 @@ const validate = (formValues) => {
 
   if (!formValues.passwordConfirm && !errors.password) {
     errors.passwordConfirm = 'Please confirm password';
+  } else if (
+    formValues.passwordConfirm &&
+    formValues.password &&
+    formValues.password !== formValues.passwordConfirm
+  ) {
+    errors.passwordConfirm = "Passwords doesn't match";
   }
 
   if (!formValues.phone) {

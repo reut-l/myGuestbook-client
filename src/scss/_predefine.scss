@@ -1,0 +1,74 @@
+body {
+  line-height: 25px;
+  font-size: 16px;
+  font-family: $primary-font;
+  font-weight: 400;
+  color: $text-color;
+  background-color:$bg-color;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $primary-font;
+  font-weight: 300;
+  color: $primary-color;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+}
+
+.btn {
+      margin: auto 8px;
+      border: 1px solid $text-color;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      padding:8px;
+}
+
+.btn-outline {
+background-color:transparent;
+}
+
+.btn-action {
+  background-color: $action-color;
+  color: white;
+  border: 1px solid $action-color;
+  font-weight:500;
+}
+
+.btn-warning {
+  background-color: $warning-color;
+  color: white;
+  border: 1px solid $warning-color;
+  font-weight:500;
+}
+
+
+.disabled {
+  opacity: .4;
+  pointer-events: none;
+}
+
+.hided {
+  display: none;
+}
+
+.container {
+  margin: 8px 0;
+}
+
+.main-container {
+  // min-height: calc(100vh + 50px);
+  position: relative;
+ }
+
+.middle-container {
+  margin-top: 60px;
+}

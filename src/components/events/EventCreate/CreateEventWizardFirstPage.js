@@ -3,12 +3,23 @@ import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import renderField from '../../utils/forms/renderField';
 
-const CreateEventWizardFirstPage = ({ handleSubmit }) => {
+const CreateEventWizardFirstPage = ({
+  handleSubmit,
+  submitting,
+  invalid,
+  pristine,
+}) => {
+  const disabled = pristine || submitting || invalid;
+
   return (
-    <form onSubmit={handleSubmit} className="ui form">
+    <form onSubmit={handleSubmit} className="create-event-form">
       <Field name="name" component={renderField} label="Event's Name" />
       <div>
-        <button type="submit" className="next">
+        <button
+          type="submit"
+          disabled={disabled}
+          className={`next-btn btn btn-action ${disabled ? 'disabled' : ''}`}
+        >
           Next
         </button>
       </div>
@@ -17,7 +28,7 @@ const CreateEventWizardFirstPage = ({ handleSubmit }) => {
 };
 
 export default reduxForm({
-  form: 'createEvent',
+  form: 'createEventForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
   validate,

@@ -1,39 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactWebcam from 'react-webcam';
 import Spinner from './Spinner';
-// import CircularProgress from '@material-ui/core/CircularProgress'
-// import Button from '@material-ui/core/Button'
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     button: {
-//       marginLeft: 0
-//     },
-//     buttonProgress: {
-//       position: 'absolute',
-//       top: '50%',
-//       left: '50%',
-//       marginTop: -12,
-//       marginLeft: -12
-//     },
-//     wrapper: {
-//       position: 'relative'
-//     }
-//   })
-// )
+// const getVideoConstraints = () => {
+//   const padding = 16;
+//   const aspectRatio = 1.777777777777778;
+//   const width =
+//     window.innerWidth > 640 + padding ? 640 : window.innerWidth - padding;
 
-const getVideoConstraints = () => {
-  const padding = 16;
-  const aspectRatio = 1.777777777777778;
-  const width =
-    window.innerWidth > 640 + padding ? 640 : window.innerWidth - padding;
-
-  return {
-    width,
-    height: width / aspectRatio,
-    facingMode: 'user',
-  };
-};
+//   return {
+//     width,
+//     height: width / aspectRatio,
+//     facingMode: 'user',
+//   };
+// };
 
 const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
   const byteCharacters = atob(b64Data);
@@ -55,8 +35,6 @@ const b64toBlob = (b64Data, contentType = '', sliceSize = 512) => {
 };
 
 const Webcam = ({ onCapture, isUploading }) => {
-  //const classes = useStyles({})
-
   const [state, setState] = useState({
     loaded: false,
     uploading: false,
@@ -81,7 +59,11 @@ const Webcam = ({ onCapture, isUploading }) => {
     }
   }, [webcamRef]);
 
-  const videoConstraints = getVideoConstraints();
+  const videoConstraints = {
+    width: 300,
+    height: 400,
+    facingMode: 'user',
+  };
 
   return (
     <>
@@ -96,7 +78,7 @@ const Webcam = ({ onCapture, isUploading }) => {
       />
       <div>
         <button
-          className="ui primary button"
+          className="btn btn-action"
           variant="contained"
           disabled={state.uploading}
           onClick={capture}

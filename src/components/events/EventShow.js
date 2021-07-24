@@ -1,25 +1,27 @@
-import React, { Component, Fragment } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import EventCover from './EventCover';
-import EventPosts from './EventPosts';
-import SearchGuests from './fields/SearchGuests';
-import { checkIsLoggedIn } from '../../actions';
+import EventHeader from './EventHeader';
+import EventBody from './EventBody';
+import { fetchEvent } from '../../actions';
 
-class EventShow extends Component {
-  componentDidMount() {
-    this.props.checkIsLoggedIn();
-  }
-
-  render() {
-    const { eventId } = this.props.match.params;
-    return (
-      <Fragment>
-        <SearchGuests eventId={eventId} />
-        <EventCover eventId={eventId} />
-        <EventPosts eventId={eventId} />
-      </Fragment>
+const EventShow = ({
+  match: {
+    params: { eventId },
+  },
+  fetchEvent,
+}) => {
+  useEffect(() => {
+    fetchEvent(eventId).then(() =>
+      localStorage.setItem('currentEvent', JSON.stringify(eventId))
     );
-  }
-}
+  }, []);
 
-export default connect(null, { checkIsLoggedIn })(EventShow);
+  return (
+    <div className="middle-container">
+      <EventHeader eventId={eventId} />
+      <EventBody eventId={eventId} />
+    </div>
+  );
+};
+
+export default connect(null, { fetchEvent })(EventShow);

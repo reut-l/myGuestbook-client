@@ -9,6 +9,7 @@ const CreateEventWizardFourthPage = ({
   pristine,
   previousPage,
   submitting,
+  invalid,
   change,
 }) => {
   const [file, setFile] = useState('');
@@ -30,8 +31,10 @@ const CreateEventWizardFourthPage = ({
 
   const resetForm = () => setFile('');
 
+  const disabled = pristine || submitting || invalid;
+
   return (
-    <form onSubmit={handleSubmit} className="ui form">
+    <form onSubmit={handleSubmit} className="event-form-cover-image">
       <Field
         name="imageCover"
         component={renderDropzone}
@@ -39,28 +42,37 @@ const CreateEventWizardFourthPage = ({
         imagefile={file}
         handleOnDrop={handleOnDrop}
       />
-      <div style={{ textAlign: 'center' }}>
+      <div className="clear-btn-box">
         <button
           type="button"
           disabled={pristine || submitting}
           onClick={resetForm}
+          className="btn btn-outline"
         >
           Clear Image
         </button>
       </div>
-      <div>
-        <button type="button" className="previous" onClick={previousPage}>
+      <div className="form-navigation-container-submition">
+        <button
+          type="button"
+          className="prev-btn btn btn-outline"
+          onClick={previousPage}
+        >
           Previous
         </button>
-        <button type="submit" disabled={pristine || submitting}>
-          Submit
+        <br />
+        <button
+          type="submit"
+          className={`submit-btn btn btn-action ${disabled ? 'disabled' : ''}`}
+        >
+          Create Event
         </button>
       </div>
     </form>
   );
 };
 export default reduxForm({
-  form: 'createEvent',
+  form: 'createEventForm',
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true,
   validate,

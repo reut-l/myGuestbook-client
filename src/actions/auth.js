@@ -2,15 +2,17 @@ import myGuestBookAPI from '../apis/appServer';
 import { FETCH_EVENTS, LOG_IN, LOG_OUT } from './types';
 import history from '../history';
 
-const splitResponseAndDispatch = (dispatch, response) => {
-  const { _id, name, email, eventsAsGuest, eventsAsCreator } =
+const splitResponseAndDispatch = (dispatch, response, sourcePath) => {
+  const { _id, name, email, phone, eventsAsGuest, eventsAsCreator } =
     response.data.data.user;
 
-  response.user = { _id, name, email };
+  response.user = { _id, name, email, phone };
   response.events = { eventsAsGuest, eventsAsCreator };
 
   dispatch({ type: LOG_IN, payload: response.user });
   dispatch({ type: FETCH_EVENTS, payload: response.events });
+
+  if (sourcePath) history.push(sourcePath);
 };
 
 export const checkIsLoggedIn = () => async (dispatch, getState) => {
@@ -24,16 +26,15 @@ export const checkIsLoggedIn = () => async (dispatch, getState) => {
   if (!response.data.data.isLoggedIn) dispatch({ type: LOG_OUT });
 };
 
-export const login =
-  ({ email, password }) =>
-  async (dispatch) => {
-    const response = await myGuestBookAPI.post('/users/login', {
-      email,
-      password,
-    });
+export const login = (formValues, sourcePath) => async (dispatch) => {
+  const { email, password } = formValues;
+  const response = await myGuestBookAPI.post('/users/login', {
+    email,
+    password,
+  });
 
-    splitResponseAndDispatch(dispatch, response);
-  };
+  splitResponseAndDispatch(dispatch, response, sourcePath);
+};
 
 export const logout = () => async (dispatch) => {
   const response = await myGuestBookAPI.get('/users/logout');
@@ -44,10 +45,10 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const signUp = (formValues) => async (dispatch) => {
+export const signUp = (formValues, sourcePath) => async (dispatch) => {
   const response = await myGuestBookAPI.post('/users/signup', formValues);
 
-  splitResponseAndDispatch(dispatch, response);
+  splitResponseAndDispatch(dispatch, response, sourcePath);
 };
 
 export const updateMe = (formValues) => async (dispatch) => {

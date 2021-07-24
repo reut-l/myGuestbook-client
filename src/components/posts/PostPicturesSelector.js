@@ -14,13 +14,16 @@ const PostPicturesSelector = (props) => {
   }, [pictures]);
 
   const renderNoPicturesFound = () => (
-    <div>
+    <div className="images-display-container">
       <h1>Nothing to show</h1>
       <p>
         Sorry, we were not able to find any pictures of you. Please try Again
       </p>
       <div>
-        <Link to={`/events/${eventId}/posts/new`} className="ui button primary">
+        <Link
+          to={`/events/${eventId}/posts/new`}
+          className="btn btn-action continue-btn"
+        >
           Skip
         </Link>
       </div>
@@ -29,7 +32,7 @@ const PostPicturesSelector = (props) => {
 
   const renderPictures = () => {
     return (
-      <div>
+      <div className="images-display-container">
         <h1>We found you!</h1>
         <div className="ui grid">
           {pictures.map((picture, i) => (
@@ -41,7 +44,7 @@ const PostPicturesSelector = (props) => {
         <div>
           <Link
             to={`/events/${eventId}/posts/new`}
-            className="ui button primary"
+            className="btn btn-action continue-btn"
           >
             Continue
           </Link>
@@ -61,14 +64,16 @@ const PostPicturesSelector = (props) => {
   };
 
   return (
-    <div className="ui container">
-      <h3>Find your pictures</h3>
-      <h5>Upload a picture of yourself</h5>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Webcam onCapture={processImage} isUploading={uploading} />
-      </Suspense>
-      {hasSearched &&
-        (pictures.length > 0 ? renderPictures() : renderNoPicturesFound())}
+    <div className="middle-container">
+      <div className="pictures-selector-container">
+        <h1>Find your pictures</h1>
+        <h3>Step 1:Take a picture of yourself</h3>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Webcam onCapture={processImage} isUploading={uploading} />
+        </Suspense>
+        {hasSearched &&
+          (pictures.length > 0 ? renderPictures() : renderNoPicturesFound())}
+      </div>
     </div>
   );
 };

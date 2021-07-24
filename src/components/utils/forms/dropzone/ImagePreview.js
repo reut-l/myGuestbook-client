@@ -3,7 +3,7 @@ import React from 'react';
 const ImagePreview = ({ imagefile }) => {
   const { name, preview, size } = imagefile;
   return (
-    <div className="render-preview">
+    <div className="dropbox-preview">
       <div className="image-container">
         <img src={preview} alt={name} />
       </div>
