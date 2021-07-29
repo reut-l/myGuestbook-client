@@ -6,6 +6,8 @@
 
 @import "predefine";
 
+@import "form";
+
 @import "header";
 
 @import "footer";
@@ -14,8 +16,6 @@
 
 @import "authNav";
 
-@import "form";
-
 @import "dashboard";
 
 @import "showEvent";
@@ -23,3 +23,7 @@
 @import "myPosts";
 
 @import "picturesSelector";
+
+@import "error";
+
+@import "modal";

@@ -19,11 +19,6 @@ form {
     opacity: .4;
  }
 
- .error-field:first-child::before {
-  position: absolute;
-  top:45px;
- }
-
 input {
     background-color: transparent;
     border: none;
@@ -171,7 +166,7 @@ textarea {
 
   .eye-icon {
       position: relative;
-      top:20px;
+      top:8px;
       left:230px
   }
 
@@ -461,4 +456,9 @@ textarea {
   width:fit-content;
   position:relative;
   margin:25px auto;
+  padding-bottom: 20px;
+}
+
+.skip-btn {
+  margin-bottom: 10px;
 }

@@ -7,7 +7,7 @@
     z-index: 1000;
     height: 35px;
 
-    .main-event-header {
+    .event-header-main {
         position:fixed;
         top:50px; 
         left:50%;   
@@ -92,13 +92,16 @@ $bg-color-gallery:hsl(272, 25%, 52%);
 
 
 .gallery {
-    position:absolute;
-    top:90px;
+  margin-top: 100px;
     width:100%;
     border: 2px solid $bg-color-gallery;
     box-sizing: border-box;
     background-color:$bg-color-gallery;
     padding-top:8px;
+
+    .gallery-action-btns-container {
+      height:40px;
+    }
 }
         
 .img-menu-dropdown {

@@ -17,7 +17,6 @@ const LoginForm = ({
 
   return (
     <div className="auth-form-container">
-      {/* {alert && renderAlert()} */}
       <form onSubmit={handleSubmit(submit)} className="auth-form">
         <div className="first-box">
           <Field name="email" component={renderField} label="Email"></Field>

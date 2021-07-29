@@ -7,6 +7,7 @@ import { login, logout } from '../actions';
 const Header = ({ isLoggedIn, logout }) => {
   const pathname = useLocation().pathname;
 
+  // Stop propagation, with addition of immediate because of react render delay
   const toggleMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,9 +28,9 @@ const Header = ({ isLoggedIn, logout }) => {
             <FontAwesomeIcon icon="user" className="profile-icon" />
           </button>
           <div className="profile-menu-dropdown-content">
-            <span onClick={logout}>Logout</span>
             <Link to="/me/posts">
               <span>My Posts</span>
+              <span onClick={logout}>Logout</span>
             </Link>
           </div>
         </div>
@@ -38,13 +39,13 @@ const Header = ({ isLoggedIn, logout }) => {
       return (
         <>
           <Link
-            to={{ pathname: '/login', state: { sourcePath: '/' } }}
+            to={{ pathname: '/login', state: { previousPath: '/' } }}
             className="btn"
           >
             Log in
           </Link>
           <Link
-            to={{ pathname: '/register', state: { sourcePath: '/' } }}
+            to={{ pathname: '/register', state: { previousPath: '/' } }}
             className="btn btn-action"
           >
             Register

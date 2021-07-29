@@ -27,7 +27,7 @@
         }
 
         .img-menu-dropdown-content {
-            top:-70px;
+            top:-50px;
             z-index:1;
         }
     }
@@ -56,5 +56,9 @@
         background-color:transparent;
         border:none;
         font-size: 0.9rem;
+    }
+
+    .slide-nav {
+        margin: 20px auto;
     }
 }

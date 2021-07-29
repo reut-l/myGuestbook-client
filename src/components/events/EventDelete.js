@@ -1,52 +1,55 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 import history from '../../history';
 import { fetchEvent, deleteEvent } from '../../actions';
 
-class EventDelete extends Component {
-  componentDidMount() {
-    this.props.fetchEvent(this.props.match.params.eventId);
-  }
+const EventDelete = ({
+  event,
+  fetchEvent,
+  deleteEvent,
+  match: {
+    params: { eventId },
+  },
+}) => {
+  useEffect(() => {
+    fetchEvent(eventId);
+  }, [eventId, fetchEvent]);
 
-  renderActions() {
-    const { eventId } = this.props.match.params;
-
+  // Action buttens render function
+  const renderActions = () => {
     return (
-      <>
+      <div className="actions-btns">
         <button
-          onClick={() => this.props.deleteEvent(eventId)}
-          className="ui button negative"
+          onClick={() => deleteEvent(eventId)}
+          className="btn btn-warning"
         >
           Delete
         </button>
-        <Link to="/" className="ui button">
+        <Link to="/" className="btn btn-outline">
           Cancel
         </Link>
-      </>
+      </div>
     );
-  }
+  };
 
-  renderContent() {
-    if (!this.props.event) {
+  const renderContent = () => {
+    if (!event) {
       return 'Are you sure you want to delete this event?';
     }
 
-    return `Are you sure you want to delete the event with title: ${this.props.event.title}?`;
-  }
+    return `Are you sure you want to delete the event with title: ${event.name}?`;
+  };
 
-  render() {
-    return (
-      <Modal
-        title="Delete Event"
-        content={this.renderContent()}
-        actions={this.renderActions()}
-        onDismiss={() => history.push('/')}
-      />
-    );
-  }
-}
+  return (
+    <Modal
+      content={renderContent()}
+      actions={renderActions()}
+      onDismiss={() => history.push('/')}
+    />
+  );
+};
 const mapStateToProps = (state, ownProps) => {
   return { event: state.events.eventsAsCreator[ownProps.match.params.eventId] };
 };

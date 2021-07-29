@@ -13,6 +13,7 @@ const renderLocationSearch = ({
   underlineRef,
 }) => {
   return (
+    // Using Google Places API to autocomplete optional locations/addresses
     <PlacesAutocomplete {...input}>
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div className="places-autocomplete-box">
@@ -32,7 +33,7 @@ const renderLocationSearch = ({
             }`}
           >
             {loading && <div>Loading...</div>}
-            {suggestions.map((suggestion) => {
+            {suggestions.map((suggestion, i) => {
               const className = suggestion.active
                 ? 'suggestion-item--active'
                 : 'suggestion-item';
@@ -46,6 +47,7 @@ const renderLocationSearch = ({
                     className,
                     style,
                   })}
+                  key={i}
                 >
                   <span>{suggestion.description}</span>
                 </div>

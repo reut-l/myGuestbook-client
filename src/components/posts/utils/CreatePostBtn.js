@@ -9,22 +9,30 @@ const CreatePostBtn = ({ eventId, user, eventsAsGuest, updateMe }) => {
 
   useEffect(() => {
     const asyncUseEffect = async () => {
+      // Check if the current user phone is on the current event's guest phone list
       const isCurrentUserGuest = await checkIsGuest(eventId, user.phone);
 
       if (isCurrentUserGuest === true) {
         setIsGuest(true);
+
+        // Update the current event in the user's attended events in the DB and in redux state
         return updateMe({ eventsAsGuest: eventId });
       }
 
       setIsGuest(false);
     };
 
+    // Check if current user is a guest of the current event
     if (user) {
+      // A) First check if already updated in the redux state that he is a guest
       if (eventsAsGuest && eventsAsGuest.includes(eventId)) setIsGuest(true);
+
+      // B) If not, check it with the DB and update redux state accordingly
       if (isGuest === null) asyncUseEffect();
     }
-  }, [user]);
+  }, [user, eventId, eventsAsGuest, updateMe, isGuest]);
 
+  // If current user is a guest, than will be directed directly to create post page
   if (isGuest === true)
     return (
       <IconLink
@@ -34,6 +42,7 @@ const CreatePostBtn = ({ eventId, user, eventsAsGuest, updateMe }) => {
       />
     );
 
+  // If current user is not a guest according to the current DB, than first he will be redirected to registration page
   if (isGuest === false || isGuest === null)
     return (
       <IconLink

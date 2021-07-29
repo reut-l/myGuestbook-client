@@ -8,7 +8,7 @@ const renderError = (error, touched) => {
 const renderPhoneField = ({
   input,
   label,
-  meta: { error, asyncValidating },
+  meta: { error },
   onPhoneFocus,
   onPhoneBlur,
   underlineRef,
@@ -29,9 +29,9 @@ const renderPhoneField = ({
     top: '-14px',
     left: '5px',
   };
-  console.log(asyncValidating);
+
   return (
-    <div className={asyncValidating ? 'async-validating' : ''}>
+    <div>
       <PhoneInput
         {...input}
         country={'il'}

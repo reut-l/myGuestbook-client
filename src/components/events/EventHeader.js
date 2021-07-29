@@ -10,7 +10,7 @@ const EventHeader = ({ eventId, currentEvent, fetchEvent }) => {
 
   useEffect(() => {
     fetchEvent(eventId);
-  }, []);
+  }, [eventId, fetchEvent]);
 
   const toggleSearchField = () => {
     setShowSearchField(!showSearchField);
@@ -21,7 +21,7 @@ const EventHeader = ({ eventId, currentEvent, fetchEvent }) => {
 
     return (
       <div className="event-header">
-        <div className="main-event-header">
+        <div className="event-header-main">
           <h1>{eventName}</h1>
           <div className="btns-event-header">
             <CreatePostBtn eventId={eventId} />

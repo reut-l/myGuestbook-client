@@ -2,34 +2,27 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import ImagePreview from './ImagePreview';
 import Placeholder from './Placeholder';
-import ShowError from './ShowError';
 require('./style.css');
 
-const renderDropzone = ({
-  handleOnDrop,
-  input: { onChange },
-  imagefile,
-  meta,
-}) => (
+const renderDropzone = ({ handleOnDrop, imagefile, meta: { error } }) => (
   <div className="dropzone-box">
     <Dropzone
-      accept="image/jpeg, image/png, image/gif, image/bmp"
+      accept="image/jpeg"
       className="upload-container"
-      onDrop={(file) => handleOnDrop(file, onChange)}
+      onDrop={(file) => handleOnDrop(file)}
     >
       {({ getRootProps, getInputProps }) =>
-        imagefile ? (
+        imagefile && imagefile !== 'error' ? (
           <ImagePreview imagefile={imagefile} />
         ) : (
           <Placeholder
-            meta={meta}
+            error={error}
             getInputProps={getInputProps}
             getRootProps={getRootProps}
           />
         )
       }
     </Dropzone>
-    <ShowError meta={meta} />
   </div>
 );
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import $ from 'jquery';
 import ImageEditor from 'tui-image-editor';
 import colorPicker from 'tui-color-picker';
@@ -7,17 +7,28 @@ import './imageEditor.css';
 import { dataURLtoBlob } from './utils';
 
 const CustomImageEditor = ({ onImageSave, initialImage }) => {
-  const [pictures, setPictures] = useState(
-    localStorage.getItem('postPictures')
-      ? JSON.parse(localStorage.getItem('postPictures'))
-      : []
-  );
+  // Get the pictures that was found previously in the select pictures page
+  const pictures = localStorage.getItem('postPictures')
+    ? JSON.parse(localStorage.getItem('postPictures'))
+    : [];
+
+  const [showStarterText, setShowStarterText] = useState(false);
 
   const picturesRef = useRef([]);
   const itemsRef = useRef({});
   const editorRef = useRef(null);
 
+  const processSaveImage = useCallback(
+    (editorInstance) => {
+      const blob = dataURLtoBlob(editorInstance.toDataURL());
+      onImageSave(blob);
+    },
+    [onImageSave]
+  );
+
   useEffect(() => {
+    ////After the page is rendered: select the different elements (using jQuery) and add all the listeners, including creating listeners to the user pictures and creating the TUI Image editor instance and adding its listeners////
+
     var MAX_RESOLUTION = 3264 * 2448; // 8MP (Mega Pixel)
 
     var supportingFileAPI = !!(
@@ -25,7 +36,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
       window.FileList &&
       window.FileReader
     );
-    var rImageType = /data:(image\/.+);base64,/;
+
     var shapeOpt = {
       fill: '#fff',
       stroke: '#000',
@@ -128,27 +139,6 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
 
       return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
     }
-
-    // function base64ToBlob(data) {
-    //   var mimeString = '';
-    //   var raw, uInt8Array, i, rawLength;
-
-    //   raw = data.replace(rImageType, function (header, imageType) {
-    //     mimeString = imageType;
-
-    //     return '';
-    //   });
-
-    //   raw = atob(raw);
-    //   rawLength = raw.length;
-    //   uInt8Array = new Uint8Array(rawLength); // eslint-disable-line
-
-    //   for (i = 0; i < rawLength; i += 1) {
-    //     uInt8Array[i] = raw.charCodeAt(i);
-    //   }
-
-    //   return new Blob([uInt8Array], { type: mimeString });
-    // }
 
     function getBrushSettings() {
       var brushWidth = $($inputBrushWidthRange).val();
@@ -625,28 +615,52 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
 
     addListenersToPictures(imageEditor);
 
-    if (initialImage)
+    if (initialImage) {
       imageEditor.loadImageFromURL(initialImage, 'post').then(function () {
         imageEditor.clearUndoStack();
       });
-  }, [pictures]);
+    } else setShowStarterText(true);
+  }, [initialImage, processSaveImage]);
 
   const addListenersToPictures = (editorInstance) => {
     picturesRef.current.map((elRef) =>
       elRef.addEventListener('click', () => {
+        setShowStarterText(false);
         const imgSource = elRef.src.replace(/^https:\/\//i, 'http://');
         editorInstance.loadImageFromURL(imgSource, 'photo');
       })
     );
   };
 
-  const processSaveImage = (editorInstance) => {
-    const blob = dataURLtoBlob(editorInstance.toDataURL());
-    onImageSave(blob);
+  const renderStarterText = () => {
+    return (
+      <div className="starter-container">
+        <p>Select one of your pictures </p>
+        <p>
+          {' '}
+          or click <span onClick={() => setShowStarterText(false)}>
+            here
+          </span>{' '}
+          to start
+        </p>
+      </div>
+    );
   };
 
   return (
-    <div>
+    <div className="image-editor-container">
+      <div className="image-editor-pictures-container">
+        <div className="images-box">
+          {pictures.map((el, i) => (
+            <img
+              src={el.location}
+              key={i}
+              ref={(el) => (picturesRef.current[i] = el)}
+              alt="event"
+            />
+          ))}
+        </div>
+      </div>
       {/* Image editor controls - top area */}
       <div className="tui-image-editor-header">
         <div className="menu">
@@ -693,6 +707,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
       </div>
       {/* // Image editor area */}
       <div className="tui-image-editor" ref={editorRef}></div>
+      {showStarterText && renderStarterText()}
       {/* // Image editor controls - bottom area */}
       <div className="tui-image-editor-bottom">
         <div className="tui-image-editor-controls">
@@ -967,17 +982,17 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                     </button>
                     <div className="hiddenmenu">
                       <div className="top">
-                        <label for="fill-color">
+                        <label htmlFor="fill-color">
                           <input
                             type="radio"
                             ref={(e) => (itemsRef.current['fill-color'] = e)}
                             name="select-color-type"
                             value="fill"
-                            checked="checked"
+                            defaultChecked
                           />
                           Fill
                         </label>
-                        <label for="stroke-color">
+                        <label htmlFor="stroke-color">
                           <input
                             type="radio"
                             ref={(e) => (itemsRef.current['stroke-color'] = e)}
@@ -986,7 +1001,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                           />
                           Stroke
                         </label>
-                        <label for="input-check-transparent">
+                        <label htmlFor="input-check-transparent">
                           <input
                             type="checkbox"
                             ref={(e) =>
@@ -1259,18 +1274,6 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
               </div>
             </li>
           </ul>
-        </div>
-      </div>
-      <div className="image-editor-pictures-container">
-        <div className="images-box">
-          {pictures.map((el, i) => (
-            <img
-              src={el.location}
-              key={i}
-              ref={(el) => (picturesRef.current[i] = el)}
-              alt="event"
-            />
-          ))}
         </div>
       </div>
     </div>

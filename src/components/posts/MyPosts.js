@@ -21,13 +21,14 @@ const MyPosts = ({
   useEffect(() => {
     fetchMyPosts();
     fetchMyLikedPosts();
-  }, []);
+  }, [fetchMyPosts, fetchMyLikedPosts]);
 
   const toggleDisplay = (e) => {
     const id = e.target.id;
     setSelectedBtn(btns[id]);
   };
 
+  // Stop propagation, with addition of immediate because of react render delay
   const toggleMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -45,12 +46,12 @@ const MyPosts = ({
     if (posts && !isEmpty(posts)) {
       return Object.keys(posts).map((key, i) => {
         return (
-          <div className="event-container">
+          <div className="event-container" key={i}>
             <h2>{key}</h2>
             <div className="grid-container">
               {posts[key].map((post, i) => {
                 return (
-                  <div className="grid-item">
+                  <div className="grid-item" key={i}>
                     <img
                       src={`http://127.0.0.1:3001/img/posts/${post.image}`}
                       alt="post"
@@ -85,7 +86,7 @@ const MyPosts = ({
           <Link
             to={{
               pathname: `/events/${post.event}/posts/${post._id}/edit`,
-              state: { sourcePath: `/me/posts}` },
+              state: { previousPath: `/me/posts}` },
             }}
           >
             <FontAwesomeIcon
@@ -98,7 +99,7 @@ const MyPosts = ({
             to={{
               pathname: `/events/${post.event}/posts/${post._id}/delete`,
               state: {
-                sourcePath: `/me/posts`,
+                previousPath: `/me/posts`,
               },
             }}
           >

@@ -1,26 +1,27 @@
 import rekognition from '../../apis/rekognition';
 import myGuestBookAPI from '../../apis/appServer';
 
+// Check for my pictures in the collection using the AWS Rekognition API
 export const recognizeMe = async (blob, collectionName) => {
   const formData = new FormData();
   formData.append('photo', blob, 'Face');
 
-  const response = await rekognition.post(
-    `/collections/${collectionName}/face`,
-    formData
-  );
+  try {
+    const response = await rekognition.post(
+      `/collections/${collectionName}/face`,
+      formData
+    );
 
-  console.log(response);
-  if (response.status !== 200) {
+    return response.data;
+  } catch (error) {
     return {
       success: false,
-      data: `Request failed with status code ${response.status}`,
+      data: error,
     };
   }
-
-  return response.data;
 };
 
+// Check if a user is a guest by checking if his phone number is in an event guests phones list
 export const checkIsGuest = async (eventId, phoneNumber) => {
   let phone = phoneNumber.replace(/ /g, '');
   phone = phone.replace('+', '%2B');
@@ -33,6 +34,7 @@ export const checkIsGuest = async (eventId, phoneNumber) => {
   return false;
 };
 
+// Phone verification Step 1: Send a code to the phone number via an SMS
 export const getCode = async (phone) => {
   const phoneNumber = phone.replace(/ /g, '');
 
@@ -42,6 +44,7 @@ export const getCode = async (phone) => {
   return response.data.status === 'success' ? true : false;
 };
 
+// Phone verification Step 2: Verify the inserted code (check if matched the code sent to this phone number)
 export const verifyCode = async (code, phone) => {
   const phoneNumber = phone.replace(/ /g, '');
 

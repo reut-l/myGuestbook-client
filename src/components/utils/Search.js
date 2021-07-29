@@ -6,6 +6,7 @@ const Search = ({ search, placeholder, iconClass }) => {
   const [term, setTerm] = useState('');
   const [debouncedTerm, setDebouncedTrem] = useState(term);
 
+  // Set a timeout after something was typed in order to reduce unwanted api calls (call the api only when there is a min time pose in typing)
   useEffect(() => {
     const timerId = setTimeout(() => {
       setDebouncedTrem(term);
@@ -18,7 +19,7 @@ const Search = ({ search, placeholder, iconClass }) => {
 
   useEffect(() => {
     search(debouncedTerm);
-  }, [debouncedTerm]);
+  }, [debouncedTerm, search]);
 
   return (
     <div>

@@ -10,16 +10,20 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const EventAddPictures = (props) => {
+const EventAddPictures = ({
+  match: {
+    params: { eventId },
+  },
+}) => {
   const [state, setState] = useState([]);
 
-  const eventId = props.match.params.eventId;
   return (
     <div className="middle-container">
       <div className="uploadEventPicturesArea">
         <FilePond
           files={state}
           allowMultiple={true}
+          // Uploading the pictures automatically to AWS current event images collection
           server={`http://localhost:3002/api/collections/${eventId}/upload`}
           onupdatefiles={(items) => {
             setState(items.map((item) => item.file));

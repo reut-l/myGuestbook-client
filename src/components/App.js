@@ -19,6 +19,8 @@ import PostPicturesSelector from './posts/PostPicturesSelector';
 import MyPosts from './posts/MyPosts';
 import Login from './auth/Login';
 import ProtectedRoute from './utils/ProtectedRoute';
+import GeneralError from './utils/Error/GeneralError';
+import RoutingError from './utils/Error/RoutingError';
 import history from '../history';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -51,7 +53,12 @@ library.add(
   faCloudUploadAlt
 );
 
-const App = ({ isLoggedIn, checkIsLoggedIn }) => {
+const App = ({
+  isLoggedIn,
+  checkIsLoggedIn,
+  dbBasedRoutingError,
+  generalError,
+}) => {
   const [logStatusFetched, setLogStatusFetched] = useState(false);
 
   useEffect(() => {
@@ -60,9 +67,9 @@ const App = ({ isLoggedIn, checkIsLoggedIn }) => {
       setLogStatusFetched(true);
     };
     fetchLogStatus();
-  }, []);
+  }, [checkIsLoggedIn]);
 
-  if (logStatusFetched === true) {
+  if (!dbBasedRoutingError && !generalError && logStatusFetched === true) {
     if (isLoggedIn !== null)
       return (
         <>
@@ -118,7 +125,6 @@ const App = ({ isLoggedIn, checkIsLoggedIn }) => {
                 />
                 <ProtectedRoute
                   path="/events/:eventId/posts/new"
-                  // alternativeComponent={RegisterWizardForm}
                   exact
                   component={PostCreate}
                   isLoggedIn={isLoggedIn}
@@ -146,6 +152,12 @@ const App = ({ isLoggedIn, checkIsLoggedIn }) => {
                   component={MyPosts}
                   isLoggedIn={isLoggedIn}
                 />
+                <Route
+                  path="/"
+                  render={(props) => (
+                    <RoutingError reactRouterRoutingError={true} {...props} />
+                  )}
+                ></Route>
               </Switch>
               <Footer />
             </div>
@@ -153,11 +165,24 @@ const App = ({ isLoggedIn, checkIsLoggedIn }) => {
         </>
       );
   }
+
+  if (dbBasedRoutingError) {
+    return <RoutingError />;
+  }
+
+  if (generalError) {
+    return <GeneralError />;
+  }
+
   return null;
 };
 
 const mapStateToProps = (state) => {
-  return { isLoggedIn: state.auth.isLoggedIn };
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+    dbBasedRoutingError: state.errors.routing,
+    generalError: state.errors.general,
+  };
 };
 
 export default connect(mapStateToProps, { checkIsLoggedIn })(App);

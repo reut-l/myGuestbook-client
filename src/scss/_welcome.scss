@@ -1,8 +1,6 @@
 .welcome-container {
     height: 80vh;
     width:100%;
-    position: absolute;
-    top: 40px;
     left: 0;
     overflow: hidden;
 
@@ -27,6 +25,7 @@
 
     .welcome-text {
         position: absolute;
+        top:180px;
         left: 50%;
         transform: translate(-70%);
         width:165px;

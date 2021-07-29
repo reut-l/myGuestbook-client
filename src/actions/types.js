@@ -19,3 +19,10 @@ export const FETCH_EVENTS = 'FETCH_EVENTS';
 export const CREATE_EVENT = 'CREATE_EVENT';
 export const EDIT_EVENT = 'EDIT_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
+
+export const LOG_IN_FAIL = 'LOG_IN_FAIL';
+export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
+export const SHOW_EVENT_FAIL = 'SHOW_EVENT_FAIL';
+export const SHOW_POST_FAIL = 'SHOW_POST_FAIL';
+
+export const GENERAL_ERROR = 'GENERAL_ERROR';

@@ -16,14 +16,17 @@ const CreateEventWizardFourthPage = ({
 
   useEffect(() => {
     change('createEventForm', 'imageCover', file);
-  }, [file]);
+  }, [file, change]);
 
   const handleOnDrop = (newImageFile) => {
+    const imgFile = newImageFile[0];
+    if (!imgFile) return setFile('error');
+
     const imageFile = {
-      file: newImageFile[0],
-      name: newImageFile[0].name,
-      preview: URL.createObjectURL(newImageFile[0]),
-      size: newImageFile[0].size,
+      file: imgFile,
+      name: imgFile.name,
+      preview: URL.createObjectURL(imgFile),
+      size: imgFile.size,
     };
 
     setFile(imageFile);

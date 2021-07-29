@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { connect } from 'react-redux';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -9,31 +9,25 @@ const Gallery = ({ eventId, posts, fetchPostsOfEvent }) => {
   const [images, setImages] = useState([]);
   const [imagesRendered, setImagesRendered] = useState(false);
 
-  useEffect(() => {
-    fetchPostsOfEvent(eventId);
-  }, []);
+  // Render function for each gallery page
+  const myRenderItem = useCallback(
+    (post, i) => {
+      return (
+        <div key={i}>
+          <GalleryBtns eventId={eventId} currentPostId={post._id} />
+          <img
+            src={`http://127.0.0.1:3001/img/posts/${post.image}`}
+            alt="event_post"
+            className="gallery-img"
+          />
+        </div>
+      );
+    },
+    [eventId]
+  );
 
-  useEffect(() => {
-    if (posts.length > 0 && imagesRendered === false) {
-      updateImages();
-      setImagesRendered(true);
-    }
-  }, [posts]);
-
-  const myRenderItem = (post, i) => {
-    return (
-      <div key={i}>
-        <GalleryBtns eventId={eventId} currentPostId={post._id} />
-        <img
-          src={`http://127.0.0.1:3001/img/posts/${post.image}`}
-          alt="event_post"
-          className="gallery-img"
-        />
-      </div>
-    );
-  };
-
-  const updateImages = () => {
+  // Function to update images and their rendered pages, memoized.
+  const updateImages = useCallback(() => {
     const imagesArr = posts.map((post, i) => {
       const imageObj = {
         original: `http://127.0.0.1:3001/img/posts/${post.image}`,
@@ -43,9 +37,23 @@ const Gallery = ({ eventId, posts, fetchPostsOfEvent }) => {
       return imageObj;
     });
     setImages(imagesArr);
-  };
+  }, [myRenderItem, posts]);
 
-  return <ImageGallery items={images} additionalClass="gallery" />;
+  useEffect(() => {
+    fetchPostsOfEvent(eventId);
+  }, [eventId, fetchPostsOfEvent]);
+
+  useEffect(() => {
+    if (posts.length > 0 && imagesRendered === false) {
+      updateImages();
+      setImagesRendered(true);
+    }
+  }, [posts, imagesRendered, updateImages]);
+
+  if (images.length > 0)
+    return <ImageGallery items={images} additionalClass="gallery" />;
+
+  return null;
 };
 
 const mapStateToProps = (state) => {

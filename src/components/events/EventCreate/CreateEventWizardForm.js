@@ -9,6 +9,7 @@ import { createEvent } from '../../../actions';
 
 const CreateEventWizardForm = ({ createEvent }) => {
   const onSubmit = (formValues) => {
+    // Convert the free text of the list of phones to and array
     if (formValues.guestsPhones) {
       const guestsPhonesStr = formValues.guestsPhones.trim();
       const guestsPhonesArr = guestsPhonesStr.split(/[\s,]+/);

@@ -21,15 +21,17 @@ h6 {
 a {
   text-decoration: none;
   color: $text-color;
+  line-height: 20px;
 }
 
 .btn {
+      display: inline-block;
       margin: auto 8px;
       border: 1px solid $text-color;
-      padding: 5px;
       border-radius: 5px;
       font-size: 0.9rem;
-      padding:8px;
+      padding:5px 8px;
+      font-family: "Montserrat", sans-serif;
 }
 
 .btn-outline {
@@ -65,10 +67,12 @@ background-color:transparent;
 }
 
 .main-container {
-  // min-height: calc(100vh + 50px);
   position: relative;
+  display: flex;
+  flex-direction: column
  }
 
 .middle-container {
   margin-top: 60px;
+  min-height: calc(100vh - 60px);
 }

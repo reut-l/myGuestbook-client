@@ -1,8 +1,9 @@
-footer {
-    position: absolute;
-    bottom: 0;
-    left:50%;
-    transform: translate(-50%);
-    min-width: 180px;
-    display: none;
+.bottom-container{
+    width:100%;
+
+    footer {
+        position:relative;
+        width:fit-content;
+        margin:auto;
+    }
 }

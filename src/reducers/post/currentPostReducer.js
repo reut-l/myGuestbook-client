@@ -1,6 +1,6 @@
 import { FETCH_POST, LOG_OUT } from '../../actions/types';
 
-export default (state = null, action) => {
+const reducer = (state = null, action) => {
   switch (action.type) {
     case FETCH_POST:
       return action.payload;
@@ -10,3 +10,5 @@ export default (state = null, action) => {
       return state;
   }
 };
+
+export default reducer;

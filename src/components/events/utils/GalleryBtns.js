@@ -13,6 +13,7 @@ const GalleryBtns = ({
   eventId,
   currentPostId,
   user,
+  myEvents,
   myPosts,
   myLikedPosts,
   fetchMyPosts,
@@ -25,8 +26,9 @@ const GalleryBtns = ({
       fetchMyPosts();
       fetchMyLikedPosts();
     }
-  }, [user]);
+  }, [user, fetchMyPosts, fetchMyLikedPosts]);
 
+  // Stop propagation, with addition of immediate because of react render delay
   const toggleMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -34,6 +36,8 @@ const GalleryBtns = ({
   };
 
   const renderAdminBtns = () => {
+    if (!myEvents.includes(eventId)) return;
+
     if (myPosts.includes(currentPostId)) {
       return (
         <div className="img-menu-dropdown">
@@ -44,7 +48,7 @@ const GalleryBtns = ({
             <Link
               to={{
                 pathname: `/events/${eventId}/posts/${currentPostId}/edit`,
-                state: { sourcePath: `/events/${eventId}` },
+                state: { previousPath: `/events/${eventId}` },
               }}
             >
               <FontAwesomeIcon
@@ -57,7 +61,7 @@ const GalleryBtns = ({
               to={{
                 pathname: `/events/${eventId}/posts/${currentPostId}/delete`,
                 state: {
-                  sourcePath: `/events/${eventId}`,
+                  previousPath: `/events/${eventId}`,
                 },
               }}
             >
@@ -71,10 +75,11 @@ const GalleryBtns = ({
         </div>
       );
     }
-    return null;
   };
 
   const renderLikeBtn = () => {
+    if (!myEvents.includes(eventId)) return;
+
     if (!myPosts.includes(currentPostId)) {
       if (!myLikedPosts.includes(currentPostId))
         return (
@@ -100,13 +105,12 @@ const GalleryBtns = ({
           </div>
         );
     }
-    return null;
   };
 
   return (
     <div className="gallery-action-btns-container">
-      {myPosts && renderAdminBtns()}
-      {myLikedPosts && renderLikeBtn()}
+      {myEvents && myPosts && renderAdminBtns()}
+      {myEvents && myLikedPosts && renderLikeBtn()}
     </div>
   );
 };
@@ -116,6 +120,9 @@ const mapStateToProps = (state) => {
     user: state.auth.user ? state.auth.user._id : null,
     myPosts: Object.keys(state.posts.myPosts),
     myLikedPosts: Object.keys(state.posts.myLikedPosts),
+    myEvents: Object.keys(state.events.eventsAsCreator).concat(
+      Object.keys(state.events.eventsAsGuest)
+    ),
   };
 };
 

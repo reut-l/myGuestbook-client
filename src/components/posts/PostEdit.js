@@ -13,7 +13,7 @@ const PostEdit = ({
 }) => {
   useEffect(() => {
     fetchPost(postId);
-  }, []);
+  }, [postId, fetchPost]);
 
   const onImageSave = (blob) => {
     updatePostImage(blob, postId, eventId);

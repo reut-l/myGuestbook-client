@@ -7,9 +7,8 @@ import { signUp } from '../../../actions';
 import { checkIsGuest, getCode, verifyCode } from '../../utils/utils';
 import history from '../../../history';
 
-const RegisterWizardForm = ({ signUp }) => {
+const RegisterWizardForm = ({ signUp, error }) => {
   const [page, setPage] = useState(1);
-  const [alert, setAlert] = useState(null);
   const [previousPath, setPreviousPath] = useState(null);
   const [previousPathEventId, setPreviousPathEventId] = useState(null);
 
@@ -35,18 +34,17 @@ const RegisterWizardForm = ({ signUp }) => {
   };
 
   const onSubmitFirstPage = async ({ phone }) => {
+    // 1) If the user registering after sent from the event show page (clicking the create post btn) => Check if the phone number that the user inserted is in the event's guests phones list
     if (previousPathEventId) {
       const isGuest = await checkIsGuest(previousPathEventId, phone);
       if (!isGuest)
-        // return setAlert(
-        //   "We did'nt find this number in the guests list. Please try with a different phone number"
-        // );
         throw new SubmissionError({
           phone:
             "We did'nt find this number in the guests list. Please try with a different phone number",
         });
     }
 
+    // 2) Send a onetime code via an SMS to the phone number that was inserted
     const smsSent = await getCode(phone);
     if (smsSent) nextPage();
     nextPage();
@@ -55,42 +53,40 @@ const RegisterWizardForm = ({ signUp }) => {
   const onSubmit = async (formValues) => {
     const code = formValues.code.join('');
     const phone = formValues.phone;
-    console.log(code, phone);
+
+    // 1) Verify the code that the user inserted and by so completing the phone validation
     const verified = await verifyCode(code, phone);
 
-    if (verified) {
-      console.log('success');
-      if (previousPath && previousPath.match(/^\/events\/[^/]+$/)) {
-        formValues.eventsAsGuest = previousPathEventId;
-        return signUp(formValues, `/events/${previousPathEventId}/posts/new`);
-      }
+    if (!verified)
+      throw new SubmissionError({ _error: 'Wrong code. please try again' });
 
-      return signUp(formValues, '/');
+    // 2) If the user registering after sent from the event show page (and verified as a guest) => add this event to his attended events when creating the user in DB
+    if (previousPath && previousPath.match(/^\/events\/[^/]+$/)) {
+      formValues.eventsAsGuest = previousPathEventId;
+      return signUp(formValues, `/events/${previousPathEventId}/posts/new`);
     }
 
-    return setAlert('Wrong code, please try again');
-  };
-
-  const renderAlert = () => {
-    return (
-      <div className="alert-warning">
-        <p>{alert}</p>
-      </div>
-    );
+    return signUp(formValues, '/');
   };
 
   return (
-    <div className="auth-form-container">
-      {alert && renderAlert()}
+    <div className="middle-container auth-form-container">
+      {error && <div className="error-form">{error}</div>}
       {page === 1 && (
         <RegisterWizardFirstPage
           onSubmitFirstPage={onSubmitFirstPage}
           OriginalPathEventId={previousPathEventId}
         />
       )}
-      {page === 2 && <RegisterWizardSecondPage onSubmit={onSubmit} />}
+      {!error & (page === 2) && (
+        <RegisterWizardSecondPage onSubmit={onSubmit} />
+      )}
     </div>
   );
 };
 
-export default connect(null, { signUp })(RegisterWizardForm);
+const mapStateToProps = (state) => {
+  return { error: state.errors.validation.signup };
+};
+
+export default connect(mapStateToProps, { signUp })(RegisterWizardForm);

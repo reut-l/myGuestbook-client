@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   currentEvent: null,
 };
 
-export default (state = INITIAL_STATE, action) => {
+const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCH_EVENTS:
       return {
@@ -65,3 +65,5 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+export default reducer;

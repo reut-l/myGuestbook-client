@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Welcome from '../Welcome';
 
 const ProtectedRoute = ({ path, component: Component, isLoggedIn }) => {
+  // Render protected routes only when a user is logged in. Otherwise render welcome page
   return (
     <Route
       path={path}

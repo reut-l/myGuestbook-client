@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import history from '../history';
 
 const Welcome = ({ redirected }) => {
-  if (redirected) history.push('/');
+  useEffect(() => {
+    if (redirected) history.push('/');
+  }, [redirected]);
 
   return (
     <div className="container welcome-container middle-container">
@@ -28,7 +30,7 @@ const Welcome = ({ redirected }) => {
           <h1>My Guestbook</h1>
           <p>Creating memories from events</p>
           <Link
-            to={{ pathname: '/register', state: { sourcePath: '/' } }}
+            to={{ pathname: '/register', state: { previousPath: '/' } }}
             className="btn"
           >
             Let's Start

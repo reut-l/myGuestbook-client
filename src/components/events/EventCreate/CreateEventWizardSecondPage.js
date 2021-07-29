@@ -17,8 +17,13 @@ const CreateEventWizardSecondPage = ({
   const dateFieldUnderlineRef = useRef(null);
   const venueFieldUnderlineRef = useRef(null);
 
+  const refsNames = {
+    date: dateFieldUnderlineRef,
+    venue: venueFieldUnderlineRef,
+  };
+
   const underline = (fieldName, show) => {
-    const underline = eval(`${fieldName}FieldUnderlineRef`).current;
+    const underline = refsNames[fieldName].current;
     underline.style.transform = show ? 'scale(1)' : 'scale(0,1)';
   };
 

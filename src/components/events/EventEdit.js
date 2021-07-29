@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Field, reduxForm, change, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -10,7 +10,6 @@ import renderLocationSearch from '../utils/forms/renderLocationSearch';
 import renderTextArea from '../utils/forms/renderTextArea';
 import renderDropzone from '../utils/forms/dropzone/renderDropzone';
 import validate from './EventCreate/validate';
-import history from '../../history';
 
 const EventEdit = ({
   match: {
@@ -37,27 +36,28 @@ const EventEdit = ({
 
   useEffect(() => {
     fetchMyEvent(eventId);
-  }, []);
+  }, [eventId, fetchMyEvent]);
 
   useEffect(() => {
     change('editEventForm', 'imageCover', file);
-  }, [file]);
-
-  const location = useLocation();
-  const { pathname } = location;
+  }, [file, change]);
 
   const handleOnDrop = (newImageFile) => {
+    const imgFile = newImageFile[0];
+    if (!imgFile) return setFile('error');
+
     const imageFile = {
-      file: newImageFile[0],
-      name: newImageFile[0].name,
-      preview: URL.createObjectURL(newImageFile[0]),
-      size: newImageFile[0].size,
+      file: imgFile,
+      name: imgFile.name,
+      preview: URL.createObjectURL(imgFile),
+      size: imgFile.size,
     };
 
     setFile(imageFile);
   };
 
   const submit = (formValues) => {
+    // Convert free text of phone numbers list to an array
     if (formValues.guestsPhones) {
       const guestsPhonesStr = formValues.guestsPhones.trim();
       const guestsPhonesArr = guestsPhonesStr.split(/[\s,]+/);
@@ -88,8 +88,13 @@ const EventEdit = ({
     }
   };
 
+  const refsNames = {
+    date: dateFieldUnderlineRef,
+    venue: venueFieldUnderlineRef,
+  };
+
   const underline = (fieldName, show) => {
-    const underline = eval(`${fieldName}FieldUnderlineRef`).current;
+    const underline = refsNames[fieldName].current;
     underline.style.transform = show ? 'scale(1)' : 'scale(0,1)';
   };
 

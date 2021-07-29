@@ -15,15 +15,9 @@
         }
 
         button {
-            margin-top: 15px;
+            margin: 15px 0 20px;
         }
 
-    .images-display-container {
-        margin-top: 15px;
-
-        h1 {
-            margin-bottom: 15px;
-        }
         .continue-btn{
             font-size: 1.2rem;
             display:block;
@@ -32,5 +26,18 @@
             position:relative;
 
         }
+        
+        .images-display-container {
+        margin-top: 15px;
+
+        h1 {
+            margin-bottom: 15px;
+        }
+        
     }
+}
+
+.capture-btn {
+    padding:10px 15px;
+    font-size: 1rem;
 }

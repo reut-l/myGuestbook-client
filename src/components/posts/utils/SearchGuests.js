@@ -4,6 +4,7 @@ import { fetchPostsOfEvent } from '../../../actions';
 import Search from '../../utils/Search';
 
 const SearchGuests = ({ fetchPostsOfEvent, eventId }) => {
+  // Search all posts of events (when term is not set) or by creator of a post (by his partialy or full name/phone/email)
   const search = (term) => {
     fetchPostsOfEvent(eventId, term);
   };

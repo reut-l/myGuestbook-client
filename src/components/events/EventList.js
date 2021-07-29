@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import EventSelector from './fields/EventSelector';
 
 const EventList = ({ itemsArr, title, admin = false }) => {
-  // const [showEventSelector, setShowEventSelector] = useState(false);
   const itemsRef = useRef([]);
 
   useEffect(() => {
     itemsRef.current = itemsRef.current.slice(0, itemsArr.length);
   }, [itemsArr]);
 
+  // Stop propagation, with addition of immediate because of react render delay
   const toggleMenu = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -21,28 +20,28 @@ const EventList = ({ itemsArr, title, admin = false }) => {
     return itemsArr.map((el, i) => {
       if (el.imageCover) {
         return (
-          <Link to={`/events/${el._id}`}>
-            <div
-              ref={(el) => (itemsRef.current[i] = el)}
-              key={i}
-              className="grid-item"
-            >
+          <div
+            ref={(el) => (itemsRef.current[i] = el)}
+            className="grid-item"
+            key={i}
+          >
+            <Link to={`/events/${el._id}`}>
               <img
                 src={`http://127.0.0.1:3001/img/eventsCovers/${el.imageCover}`}
                 alt="event_cover_image"
               />
-              {admin && renderAdminBtns(el._id)}
-            </div>
-          </Link>
+            </Link>
+            {admin && renderAdminBtns(el._id)}
+          </div>
         );
       }
       return (
-        <Link to={`/events/${el._id}`}>
-          <div
-            key={i}
-            ref={(el) => (itemsRef.current[i] = el)}
-            className="grid-item"
-          >
+        <div
+          ref={(el) => (itemsRef.current[i] = el)}
+          className="grid-item"
+          key={i}
+        >
+          <Link to={`/events/${el._id}`}>
             <table className="without-cover-photo">
               <tbody>
                 <tr>
@@ -50,9 +49,9 @@ const EventList = ({ itemsArr, title, admin = false }) => {
                 </tr>
               </tbody>
             </table>
-            {admin && renderAdminBtns(el._id)}
-          </div>
-        </Link>
+          </Link>
+          {admin && renderAdminBtns(el._id)}
+        </div>
       );
     });
   };
