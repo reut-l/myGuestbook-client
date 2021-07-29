@@ -4,7 +4,7 @@ body {
   font-family: $primary-font;
   font-weight: 400;
   color: $text-color;
-  background-color:$bg-color;
+  background-color: $bg-color;
 }
 
 h1,
@@ -25,36 +25,35 @@ a {
 }
 
 .btn {
-      display: inline-block;
-      margin: auto 8px;
-      border: 1px solid $text-color;
-      border-radius: 5px;
-      font-size: 0.9rem;
-      padding:5px 8px;
-      font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  margin: auto 8px;
+  border: 1px solid $text-color;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding: 5px 8px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-outline {
-background-color:transparent;
+  background-color: transparent;
 }
 
 .btn-action {
   background-color: $action-color;
   color: white;
   border: 1px solid $action-color;
-  font-weight:500;
+  font-weight: 500;
 }
 
 .btn-warning {
   background-color: $warning-color;
   color: white;
   border: 1px solid $warning-color;
-  font-weight:500;
+  font-weight: 500;
 }
 
-
 .disabled {
-  opacity: .4;
+  opacity: 0.4;
   pointer-events: none;
 }
 
@@ -69,8 +68,8 @@ background-color:transparent;
 .main-container {
   position: relative;
   display: flex;
-  flex-direction: column
- }
+  flex-direction: column;
+}
 
 .middle-container {
   margin-top: 60px;

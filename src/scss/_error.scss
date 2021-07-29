@@ -1,36 +1,36 @@
 .error-message {
-    border-top:3px solid $warning-color;
-    border-bottom:3px solid $warning-color;
-    text-align: center;
-    width:100%;
-    padding:20px;
-    line-height: 40px;
-    color:$warning-color;
-    margin-top: 50px;
+  border-top: 3px solid $warning-color;
+  border-bottom: 3px solid $warning-color;
+  text-align: center;
+  width: 100%;
+  padding: 20px;
+  line-height: 40px;
+  color: $warning-color;
+  margin-top: 50px;
 
-    p:first-child {
-        font-size: 2.5rem;
-    }
+  p:first-child {
+    font-size: 2.5rem;
+  }
 }
 .error-form {
-color:$warning-color;
-width:fit-content;
-position:relative;
-margin:auto;
-font-size: 0.9rem;
-font-weight: 500;
+  color: $warning-color;
+  width: fit-content;
+  position: relative;
+  margin: auto;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .error-login {
-top:70px;
+  top: 70px;
 }
 
 .error-register {
-top:-20px;   
+  top: -20px;
 }
 
 .error-capture {
-    top:-10px;
-    white-space: pre-wrap;
-    margin-bottom: 2px;
+  top: -10px;
+  white-space: pre-wrap;
+  margin-bottom: 2px;
 }

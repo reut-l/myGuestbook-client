@@ -1,28 +1,28 @@
 form {
-    position:relative;
-    width:220px;
-    margin:auto;
+  position: relative;
+  width: 220px;
+  margin: auto;
 
-.error-field {
+  .error-field {
     position: relative;
-}
+  }
 
-.error-field::before {
-    content: "";
+  .error-field::before {
+    content: '';
     display: block;
     width: 215px;
     height: 40px;
     border: 2px solid $warning-color;
     border-radius: 8px;
-    position:absolute;
-    top:10px;
-    opacity: .4;
- }
+    position: absolute;
+    top: 10px;
+    opacity: 0.4;
+  }
 
-input {
+  input {
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid #aaa;
     color: #000;
     box-sizing: border-box;
     font-family: $text-font;
@@ -34,22 +34,21 @@ input {
     position: relative;
     width: 200px;
     display: block;
-  
+
     &:focus {
-      outline: none;    
+      outline: none;
     }
   }
 
-  
   input::-webkit-input-placeholder {
-    color: #AAA;
+    color: #aaa;
   }
-  
+
   input:focus::-webkit-input-placeholder {
-    color:$action-color;
+    color: $action-color;
   }
-  
-  input:focus+.underline {
+
+  input:focus + .underline {
     transform: scale(1);
   }
 
@@ -57,51 +56,48 @@ input {
     background-color: $action-color;
     display: block;
     height: 2px;
-    margin:auto;
+    margin: auto;
     transform: scale(0, 1);
     transition: all 0.5s linear;
     width: 202px;
   }
 
-  
   .radio-box {
     line-height: 40px;
     margin-bottom: 55px;
     .radio-label {
-      position:absolute;
+      position: absolute;
       // top:-15px;
       // display: block;
-  
-      input[type="radio"] {
-        width:fit-content;
-        display:inline;
+
+      input[type='radio'] {
+        width: fit-content;
+        display: inline;
         // position:relative;
         // top:18px;
         // float: left;
       }
-  
-      p {
-        display:inline;
-        position:relative;
-        top:-20px;
-      }
 
+      p {
+        display: inline;
+        position: relative;
+        top: -20px;
+      }
     }
   }
-  
 
-textarea {
-  display:block;
-  max-width: 220px;
-  position:relative;
-  margin:auto;
-  border-radius: 8px;
+  textarea {
+    display: block;
+    max-width: 220px;
+    position: relative;
+    margin: auto;
+    border-radius: 8px;
 
-  &:focus {
-    border:2px solid $action-color;
-    outline: none;
+    &:focus {
+      border: 2px solid $action-color;
+      outline: none;
+    }
   }
-}
 
   .notes {
     font-size: 0.7rem;
@@ -109,36 +105,36 @@ textarea {
 
   .error {
     font-size: 0.8rem;
-    color:$warning-color;
-    
-}
+    color: $warning-color;
+  }
 
   .register-sms-btn {
-      padding:4px;
-      font-size: 0.85rem;
-      border-radius: 5px;
+    padding: 4px;
+    font-size: 0.85rem;
+    border-radius: 5px;
   }
 
   .submit-btn {
-      font-size: 1.1rem;
-      width: fit-content;
-      padding: 10px 15px;
-      border-radius: 8px;
+    font-size: 1.1rem;
+    width: fit-content;
+    padding: 10px 15px;
+    border-radius: 8px;
   }
 
   .next-btn {
     display: block;
-    width:fit-content;
+    width: fit-content;
   }
 
   .form-navigation-container {
-    position:relative;
-    width:fit-content;
+    position: relative;
+    width: fit-content;
     left: 50%;
     transform: translateX(-70%);
-    .next-btn, .prev-btn {
+    .next-btn,
+    .prev-btn {
       display: inline-block;
-      top:0;
+      top: 0;
     }
   }
 }
@@ -146,185 +142,180 @@ textarea {
 .auth-form {
   .first-box {
     position: relative;
-    top:10px;
-  }   
-.second-box {
-  position: relative;
-  top:-25px;
-  line-height: 15px;
-}
+    top: 10px;
+  }
+  .second-box {
+    position: relative;
+    top: -25px;
+    line-height: 15px;
+  }
 
   .notes {
-    position:relative;
-    left:10px;
+    position: relative;
+    left: 10px;
   }
 
   .error {
-    position:relative;
-    left:10px;
-}
+    position: relative;
+    left: 10px;
+  }
 
   .eye-icon {
-      position: relative;
-      top:8px;
-      left:230px
+    position: relative;
+    top: 8px;
+    left: 230px;
   }
 
   .register-sms-btn {
-      position:relative;
-      left:180px;
-      top:-30px;
+    position: relative;
+    left: 180px;
+    top: -30px;
   }
 
   .submit-btn {
-      position:absolute;
-      left:50%;
-      transform: translateX(-50%);
-      margin-top: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
   }
 
   .next-btn {
-    position:relative;
-    margin:auto;
-    top:-15px;
+    position: relative;
+    margin: auto;
+    top: -15px;
   }
 }
 
-.create-event-form, .edit-event-form {
-  
-  &>label:not(:first-child) {
+.create-event-form,
+.edit-event-form {
+  & > label:not(:first-child) {
     margin-top: 10px;
     display: inline-block;
   }
 
-  .datepicker-box{
+  .datepicker-box {
     position: relative;
-    top:-15px;
+    top: -15px;
 
     .underline {
-      position:relative;
-      top:-1px;
-      left:-8px;
+      position: relative;
+      top: -1px;
+      left: -8px;
     }
   }
-  
+
   .places-autocomplete-box {
-    position:relative;
-    top:-15px;
-    left:-10px;
+    position: relative;
+    top: -15px;
+    left: -10px;
 
     .open-dropdown {
-      border:1px solid #666;
-      padding:5px;
+      border: 1px solid #666;
+      padding: 5px;
       border-radius: 8px;
       position: relative;
-      top:5px;
+      top: 5px;
       background-color: #fff;
     }
   }
 
   .next-btn {
-    position:relative;
-    margin:auto;
-    top:15px;
+    position: relative;
+    margin: auto;
+    top: 15px;
     width: fit-content;
   }
-
 }
 
 .event-form-guests-phones {
-  position:relative;
-  top:10px;
+  position: relative;
+  top: 10px;
 
   label {
-    position:relative;
-    top: -10px;;
+    position: relative;
+    top: -10px;
   }
 
   .next-btn {
-    position:relative;
-    margin:auto;
-    top:15px;
+    position: relative;
+    margin: auto;
+    top: 15px;
     width: fit-content;
   }
   .form-navigation-container {
-    top:15px;
+    top: 15px;
   }
-
 }
 
 .event-form-cover-image {
-  width:100%;
-  
+  width: 100%;
+
   .dropzone-box {
-    width:210px;
-    border:1px solid #000;
+    width: 210px;
+    border: 1px solid #000;
     border-radius: 8px;
-    position:relative;
-    margin:auto;
+    position: relative;
+    margin: auto;
     padding: 8px;
     box-sizing: border-box;
   }
-  
 
-.dropzone-placeholder {
-  text-align: center;;
-  .upload-icon {
-    font-size: 3rem;
-    padding:30px;
+  .dropzone-placeholder {
+    text-align: center;
+    .upload-icon {
+      font-size: 3rem;
+      padding: 30px;
+    }
   }
-}
 
-.dropbox-preview {
-  .image-container{
-    margin:0;
-    display: inline;
-    float:none;
+  .dropbox-preview {
+    .image-container {
+      margin: 0;
+      display: inline;
+      float: none;
 
-    img {
-      width:100%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .clear-btn-box {
+    margin-top: 10px;
+    text-align: center;
+
+    button {
+      border-color: $primary-color;
+      color: $primary-color;
+      font-weight: 500;
+    }
+  }
+
+  .form-navigation-container-submition {
+    text-align: center;
+    margin-top: 30px;
+
+    .submit-btn {
+      margin-top: 15px;
     }
   }
 }
 
-.clear-btn-box {
-  margin-top: 10px;
-  text-align: center;
-
-  button {
-    border-color: $primary-color;
-    color:$primary-color;
-    font-weight:500;
-  }
-}
-
-.form-navigation-container-submition {
-  text-align: center;
-  margin-top: 30px;
-
-  .submit-btn {
-    margin-top: 15px;
-  }
-}
-
-}
-
 .edit-event-form {
-
   .edit-form-label {
     position: relative;
-    width:fit-content;
-    margin:auto;
+    width: fit-content;
+    margin: auto;
   }
 
   .btns-box {
-    width:fit-content;
-    position:relative;
-    margin:auto;
+    width: fit-content;
+    position: relative;
+    margin: auto;
     text-align: center;
 
     button {
-      margin:15px 10px 25px;
+      margin: 15px 10px 25px;
     }
   }
 
@@ -332,33 +323,32 @@ textarea {
     .dropzone-box {
       margin: 10px 0;
     }
-
   }
 
-  .datepicker-box{
+  .datepicker-box {
     position: relative;
-    width:fit-content;
-    margin:auto;
-    top:0;
+    width: fit-content;
+    margin: auto;
+    top: 0;
 
     .underline {
-      position:relative;
-      top:-1px;
-      left:0;
+      position: relative;
+      top: -1px;
+      left: 0;
     }
   }
-  
+
   .places-autocomplete-box {
-    position:relative;
-    top:-5px;
-    left:0;
+    position: relative;
+    top: -5px;
+    left: 0;
 
     .open-dropdown {
-      border:1px solid #666;
-      padding:5px;
+      border: 1px solid #666;
+      padding: 5px;
       border-radius: 8px;
       position: relative;
-      top:5px;
+      top: 5px;
       background-color: #fff;
     }
   }
@@ -367,56 +357,55 @@ textarea {
 .cover-image-preview-box {
   text-align: center;
   img {
-    width:130px;
+    width: 130px;
   }
   button {
     border-color: $primary-color;
-    color:$primary-color;
-    font-weight:500;
+    color: $primary-color;
+    font-weight: 500;
   }
 }
 
-.code-form{
-        
-       h3 {
-            color:$action-color;
-            text-align: center;
-        }
-        p {
-            font-size: 0.8rem;
-            color:#000;
-            text-align: left;
-            margin-top: 8px;
-        }
-        .resend-btn {
-            position:relative;
-            left:150px;
-            top:-27px;
-            font-size: .8rem;
-            background-color: transparent;
-            border:none;
-            text-decoration: underline;
-            color:$warning-color;
-        }
-        .verify-btn{
-            position:absolute;
-            left:50%;
-            transform: translateX(-50%);
-            margin:auto;
-        }
-        .code-form-field {
-            display: inline-block;
-                .code-form-input {
-                    width: 30px;
-                    text-align: center;
-                    margin-left: 5px;
-                }
-            }
+.code-form {
+  h3 {
+    color: $action-color;
+    text-align: center;
+  }
+  p {
+    font-size: 0.8rem;
+    color: #000;
+    text-align: left;
+    margin-top: 8px;
+  }
+  .resend-btn {
+    position: relative;
+    left: 150px;
+    top: -27px;
+    font-size: 0.8rem;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    color: $warning-color;
+  }
+  .verify-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
+  }
+  .code-form-field {
+    display: inline-block;
+    .code-form-input {
+      width: 30px;
+      text-align: center;
+      margin-left: 5px;
+    }
+  }
 }
 .alert-warning {
-  color:#FFF;
+  color: #fff;
   font-weight: 600;
-  background-color:$warning-color;
+  background-color: $warning-color;
   border: 1px solid $warning-color;
   text-align: center;
   border-radius: 5px;
@@ -424,21 +413,21 @@ textarea {
   width: fit-content;
   position: relative;
   margin: auto;
-  padding:5px 8px;
+  padding: 5px 8px;
 }
 
-.upload-event-pictures-box{
-  margin:0 auto 70px;
+.upload-event-pictures-box {
+  margin: 0 auto 70px;
   position: relative;
-  width:fit-content;
-  top:15px;
+  width: fit-content;
+  top: 15px;
 
   .upload-event-pictures-btn {
     font-size: 1.1rem;
     width: fit-content;
     padding: 10px 15px;
     border-radius: 8px;
-}
+  }
 }
 
 .edit-event-title {
@@ -447,15 +436,15 @@ textarea {
 }
 
 .uploadEventPicturesArea {
-  width:90%;
-  position:relative;
-  margin:auto;
+  width: 90%;
+  position: relative;
+  margin: auto;
 }
 
-.btns-box{
-  width:fit-content;
-  position:relative;
-  margin:25px auto;
+.btns-box {
+  width: fit-content;
+  position: relative;
+  margin: 25px auto;
   padding-bottom: 20px;
 }
 

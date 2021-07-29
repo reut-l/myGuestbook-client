@@ -1,102 +1,106 @@
 $menu-items: 2;
-$width: (100/$menu-items) * 1%;
+$width: (100 / $menu-items) * 1%;
 $transition-speed: 1.1s;
 
 .slide-nav {
-    margin: 60px auto;
-    max-width: 220px;
+  margin: 60px auto;
+  max-width: 220px;
+  padding: 0;
+  width: 100%;
+  line-height: 35px;
+
+  .slide-nav-item {
+    background-color: $bg-color;
+    display: block;
+    float: left;
+    margin: 0;
     padding: 0;
-    width: 100%;
-    line-height: 35px;
+    text-align: center;
+    width: $width;
+    color: #777;
 
-    .slide-nav-item {
-        background-color: $bg-color;
-        display: block;
-        float: left;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        width: $width;
-        color:#777;
+    &.is-active {
+      color: $warning-color;
+    }
 
-        &.is-active {
-            color: $warning-color;
-          }
-         
-        &:hover {
-            color: $warning-color;
-          }
+    &:hover {
+      color: $warning-color;
     }
   }
+}
 
 .with-indicator {
-    position: relative;
-    z-index: 100;
-    .slide-nav-item:last-child {
-        &:before, &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          transition: left #{$transition-speed} ease;
-        }
-        
-        &:before {
-          width: 0;
-          height: 0;
-          border: 6px solid transparent;
-          border-top-color: $warning-color;
-          top: -2px;
-          left: 23%;
-          margin-left: -3px;
-        }
-      
-        &:after {
-          width: $width;
-          height:42px;
-          background: $warning-color;
-          top: -4px;
-          bottom: -8px;
-          left: 0;
-          z-index: -1;
-        }
-      }
+  position: relative;
+  z-index: 100;
+  .slide-nav-item:last-child {
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      transition: left #{$transition-speed} ease;
+    }
+
+    &:before {
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-top-color: $warning-color;
+      top: -2px;
+      left: 23%;
+      margin-left: -3px;
+    }
+
+    &:after {
+      width: $width;
+      height: 42px;
+      background: $warning-color;
+      top: -4px;
+      bottom: -8px;
+      left: 0;
+      z-index: -1;
+    }
+  }
 }
 
 $menu-items-loop-offset: $menu-items - 1;
 
 .with-indicator {
   @for $i from 1 through $menu-items-loop-offset {
-    .slide-nav-item:nth-child(#{$i}).is-active ~ .slide-nav-item:last-child:after {
-      left:($width*$i)-$width;
+    .slide-nav-item:nth-child(#{$i}).is-active
+      ~ .slide-nav-item:last-child:after {
+      left: ($width * $i)-$width;
     }
-    
-   .slide-nav-item:nth-child(#{$i}).is-active ~ .slide-nav-item:last-child:before {
-      left:($width*$i)+($width/2)-$width;
+
+    .slide-nav-item:nth-child(#{$i}).is-active
+      ~ .slide-nav-item:last-child:before {
+      left: ($width * $i)+ ($width/2)-$width;
     }
   }
 }
 
 @for $i from 1 through $menu-items-loop-offset {
-    // When the menu is :hover make the indicator line up with it.
-    .slide-nav-item:nth-child(#{$i}):hover ~ .slide-nav-item:last-child:after {
-      left:($width*$i)-$width !important;
-    }
-  
-    .slide-nav-item:nth-child(#{$i}):hover ~ .slide-nav-item:last-child:before{
-      left:($width*$i)+($width/2)-$width !important;
-    }
-  } // end @for loop
-  
-  // make sure the last-child talks to itself
-  .slide-nav-item {
-    &:last-child {
-      &:hover, &.is-active {
-        &:before {
-          left: (100%-$width)+($width/2) !important;
-        }
-        &:after{
-          left: 100%-$width !important;
-        }
-      }        
+  // When the menu is :hover make the indicator line up with it.
+  .slide-nav-item:nth-child(#{$i}):hover ~ .slide-nav-item:last-child:after {
+    left: ($width * $i)-$width !important;
+  }
+
+  .slide-nav-item:nth-child(#{$i}):hover ~ .slide-nav-item:last-child:before {
+    left: ($width * $i)+ ($width/2)-$width !important;
+  }
+} // end @for loop
+
+// make sure the last-child talks to itself
+.slide-nav-item {
+  &:last-child {
+    &:hover,
+    &.is-active {
+      &:before {
+        left: (100%-$width)+ ($width/2) !important;
+      }
+      &:after {
+        left: 100%-$width !important;
+      }
     }
   }
+}
