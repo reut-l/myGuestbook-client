@@ -143,6 +143,11 @@ form {
   .first-box {
     position: relative;
     top: 10px;
+    .action-msg {
+      color: $action-color;
+      text-align: center;
+      font-weight: 600;
+    }
   }
   .second-box {
     position: relative;
@@ -183,6 +188,19 @@ form {
     position: relative;
     margin: auto;
     top: -15px;
+  }
+}
+
+.forgot-pwd {
+  font-size: 0.8rem;
+  position: relative;
+  width: 220px;
+  margin: 70px auto;
+  text-align: center;
+  span {
+    cursor: pointer;
+    color: #0000ff;
+    text-decoration: underline;
   }
 }
 
@@ -450,4 +468,21 @@ form {
 
 .skip-btn {
   margin-bottom: 10px;
+}
+
+.email-sent-msg {
+  width: 220px;
+  position: relative;
+  margin: auto;
+  text-align: center;
+
+  p:first-child {
+    font-size: 0.8rem;
+  }
+
+  p:last-child {
+    color: $action-color;
+    font-weight: 600;
+    font-size: 1rem;
+  }
 }

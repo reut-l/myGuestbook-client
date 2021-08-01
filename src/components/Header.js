@@ -18,7 +18,8 @@ const Header = ({ isLoggedIn, logout }) => {
     if (
       isLoggedIn === null ||
       pathname === '/login' ||
-      pathname === '/register'
+      pathname === '/register' ||
+      pathname === '/forgotPassword'
     ) {
       return null;
     } else if (isLoggedIn) {

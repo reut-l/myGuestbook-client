@@ -5,6 +5,9 @@ import {
   LOG_OUT,
   LOG_IN_FAIL,
   SIGN_UP_FAIL,
+  FORGOT_PWD_SUCCESS,
+  FORGOT_PWD_FAIL,
+  RESET_PWD_FAIL,
   GENERAL_ERROR,
 } from './types';
 import history from '../history';
@@ -47,12 +50,9 @@ export const checkIsLoggedIn = () => async (dispatch, getState) => {
 };
 
 export const login = (formValues, previousPath) => async (dispatch) => {
-  const { email, password } = formValues;
-
   try {
     const response = await myGuestBookAPI.post('/users/login', {
-      email,
-      password,
+      formValues,
     });
 
     if (response) splitResponseAndDispatch(dispatch, response, previousPath);
@@ -94,4 +94,43 @@ export const updateMe = (formValues) => async (dispatch) => {
   const response = await myGuestBookAPI.patch('/users/updateMe', formValues);
 
   splitResponseAndDispatch(dispatch, response, null);
+};
+
+export const forgotPwd = (formValues) => async (dispatch) => {
+  try {
+    const response = await myGuestBookAPI.post(
+      '/users/forgotPassword',
+      formValues
+    );
+
+    if (response.data.status === 'success')
+      dispatch({ type: FORGOT_PWD_SUCCESS });
+  } catch (error) {
+    // In case of an operational error, such as email doesn't exist in DB
+    if (error.response && error.response.data.status === 'fail') {
+      dispatch({ type: FORGOT_PWD_FAIL, payload: error.response.data.message });
+    } else {
+      dispatch({ type: GENERAL_ERROR });
+    }
+  }
+};
+
+export const resetPwd = (formValues, token) => async (dispatch) => {
+  try {
+    const response = await myGuestBookAPI.patch(
+      `/users/resetPassword/${token}`,
+      formValues
+    );
+
+    if (response.data.status === 'success') {
+      splitResponseAndDispatch(dispatch, response);
+    }
+  } catch (error) {
+    // In case of an operational error, such as wrong token or token expired
+    if (error.response && error.response.data.status === 'fail') {
+      dispatch({ type: RESET_PWD_FAIL, payload: error.response.data.message });
+    } else {
+      dispatch({ type: GENERAL_ERROR });
+    }
+  }
 };

@@ -18,6 +18,8 @@ import PostDelete from './posts/PostDelete';
 import PostPicturesSelector from './posts/PostPicturesSelector';
 import MyPosts from './posts/MyPosts';
 import Login from './auth/Login';
+import ForgotPassword from './auth/ForgotPassword';
+import ResetPassword from './auth/ResetPassword';
 import ProtectedRoute from './utils/ProtectedRoute';
 import GeneralError from './utils/Error/GeneralError';
 import RoutingError from './utils/Error/RoutingError';
@@ -93,6 +95,16 @@ const App = ({
                   component={RegisterWizardForm}
                 ></Route>
                 <Route path="/login" exact component={Login}></Route>
+                <Route
+                  path="/forgotPassword"
+                  exact
+                  component={ForgotPassword}
+                ></Route>
+                <Route
+                  path="/resetPassword/:token"
+                  exact
+                  component={ResetPassword}
+                ></Route>
                 <ProtectedRoute
                   path="/events/new"
                   exact

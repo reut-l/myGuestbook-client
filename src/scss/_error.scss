@@ -21,7 +21,8 @@
   font-weight: 500;
 }
 
-.error-login {
+.error-login,
+.error-forgot-pwd {
   top: 70px;
 }
 
@@ -33,4 +34,8 @@
   top: -10px;
   white-space: pre-wrap;
   margin-bottom: 2px;
+}
+
+.error-reset-pwd {
+  top: 40px;
 }

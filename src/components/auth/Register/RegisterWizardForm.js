@@ -73,14 +73,9 @@ const RegisterWizardForm = ({ signUp, error }) => {
     <div className="middle-container auth-form-container">
       {error && <div className="error-form">{error}</div>}
       {page === 1 && (
-        <RegisterWizardFirstPage
-          onSubmitFirstPage={onSubmitFirstPage}
-          OriginalPathEventId={previousPathEventId}
-        />
+        <RegisterWizardFirstPage onSubmitFirstPage={onSubmitFirstPage} />
       )}
-      {!error & (page === 2) && (
-        <RegisterWizardSecondPage onSubmit={onSubmit} />
-      )}
+      {!error && page === 2 && <RegisterWizardSecondPage onSubmit={onSubmit} />}
     </div>
   );
 };

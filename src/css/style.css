@@ -371,6 +371,12 @@ form .form-navigation-container .prev-btn {
   top: 10px;
 }
 
+.auth-form .first-box .action-msg {
+  color: #26c2ab;
+  text-align: center;
+  font-weight: 600;
+}
+
 .auth-form .second-box {
   position: relative;
   top: -25px;
@@ -411,6 +417,20 @@ form .form-navigation-container .prev-btn {
   position: relative;
   margin: auto;
   top: -15px;
+}
+
+.forgot-pwd {
+  font-size: 0.8rem;
+  position: relative;
+  width: 220px;
+  margin: 70px auto;
+  text-align: center;
+}
+
+.forgot-pwd span {
+  cursor: pointer;
+  color: #0000ff;
+  text-decoration: underline;
 }
 
 .create-event-form > label:not(:first-child),
@@ -702,6 +722,23 @@ form .form-navigation-container .prev-btn {
 
 .skip-btn {
   margin-bottom: 10px;
+}
+
+.email-sent-msg {
+  width: 220px;
+  position: relative;
+  margin: auto;
+  text-align: center;
+}
+
+.email-sent-msg p:first-child {
+  font-size: 0.8rem;
+}
+
+.email-sent-msg p:last-child {
+  color: #26c2ab;
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .header {
@@ -1503,7 +1540,8 @@ form .form-navigation-container .prev-btn {
   font-weight: 500;
 }
 
-.error-login {
+.error-login,
+.error-forgot-pwd {
   top: 70px;
 }
 
@@ -1515,6 +1553,10 @@ form .form-navigation-container .prev-btn {
   top: -10px;
   white-space: pre-wrap;
   margin-bottom: 2px;
+}
+
+.error-reset-pwd {
+  top: 40px;
 }
 
 .modal-container {
