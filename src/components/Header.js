@@ -61,7 +61,7 @@ const Header = ({ isLoggedIn, logout }) => {
       <div className="right-menu">{renderAuthBtns()}</div>
       <div className="left-menu">
         <Link to="/">
-          <img src="http://localhost:3000/img/logo.png" alt="guestbook_logo" />
+          <img src="/img/logo.png" alt="guestbook_logo" />
         </Link>
       </div>
     </div>

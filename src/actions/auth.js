@@ -51,9 +51,7 @@ export const checkIsLoggedIn = () => async (dispatch, getState) => {
 
 export const login = (formValues, previousPath) => async (dispatch) => {
   try {
-    const response = await myGuestBookAPI.post('/users/login', {
-      formValues,
-    });
+    const response = await myGuestBookAPI.post('/users/login', formValues);
 
     if (response) splitResponseAndDispatch(dispatch, response, previousPath);
   } catch (error) {

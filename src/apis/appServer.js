@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://damp-retreat-28399.herokuapp.com/api/v1',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   withCredentials: true,
 });
 
