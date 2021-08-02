@@ -1,5 +1,7 @@
+@use "sass:math";
+
 $menu-items: 2;
-$width: (100 / $menu-items) * 1%;
+$width: math.div(100, $menu-items) * 1%;
 $transition-speed: 1.1s;
 
 .slide-nav {
@@ -74,7 +76,7 @@ $menu-items-loop-offset: $menu-items - 1;
 
     .slide-nav-item:nth-child(#{$i}).is-active
       ~ .slide-nav-item:last-child:before {
-      left: ($width * $i)+ ($width/2)-$width;
+      left: ($width * $i) + math.div($width, 2)-$width;
     }
   }
 }
@@ -86,7 +88,7 @@ $menu-items-loop-offset: $menu-items - 1;
   }
 
   .slide-nav-item:nth-child(#{$i}):hover ~ .slide-nav-item:last-child:before {
-    left: ($width * $i)+ ($width/2)-$width !important;
+    left: ($width * $i) + math.div($width, 2)-$width !important;
   }
 } // end @for loop
 
@@ -96,7 +98,7 @@ $menu-items-loop-offset: $menu-items - 1;
     &:hover,
     &.is-active {
       &:before {
-        left: (100%-$width)+ ($width/2) !important;
+        left: (100%-$width) + math.div($width, 2) !important;
       }
       &:after {
         left: 100%-$width !important;
