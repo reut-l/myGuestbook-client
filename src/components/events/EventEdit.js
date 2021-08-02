@@ -128,7 +128,7 @@ const EventEdit = ({
             {initialValues.imageCover && (
               <div className="cover-image-preview-box">
                 <img
-                  src={`http://127.0.0.1:3001/img/eventsCovers/${initialValues.imageCover}`}
+                  src={`${process.env.REACT_APP_SERVER_URL}/img/eventsCovers/${initialValues.imageCover}`}
                   alt="event_cover"
                 />
                 <button

@@ -27,7 +27,7 @@ const EventList = ({ itemsArr, title, admin = false }) => {
           >
             <Link to={`/events/${el._id}`}>
               <img
-                src={`http://127.0.0.1:3001/img/eventsCovers/${el.imageCover}`}
+                src={`${process.env.REACT_APP_SERVER_URL}/img/eventsCovers/${el.imageCover}`}
                 alt="event_cover_image"
               />
             </Link>

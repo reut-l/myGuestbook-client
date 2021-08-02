@@ -16,7 +16,7 @@ const Gallery = ({ eventId, posts, fetchPostsOfEvent }) => {
         <div key={i}>
           <GalleryBtns eventId={eventId} currentPostId={post._id} />
           <img
-            src={`http://127.0.0.1:3001/img/posts/${post.image}`}
+            src={`${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`}
             alt="event_post"
             className="gallery-img"
           />
@@ -30,8 +30,8 @@ const Gallery = ({ eventId, posts, fetchPostsOfEvent }) => {
   const updateImages = useCallback(() => {
     const imagesArr = posts.map((post, i) => {
       const imageObj = {
-        original: `http://127.0.0.1:3001/img/posts/${post.image}`,
-        thumbnail: `http://127.0.0.1:3001/img/posts/${post.image}`,
+        original: `${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`,
+        thumbnail: `${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`,
         renderItem: () => myRenderItem(post, i),
       };
       return imageObj;

@@ -24,7 +24,7 @@ const EventAddPictures = ({
           files={state}
           allowMultiple={true}
           // Uploading the pictures automatically to AWS current event images collection
-          server={`http://localhost:3002/api/collections/${eventId}/upload`}
+          server={`${process.env.REACT_APP_AWS_REKOGNITION_SERVER_URL}/api/collections/${eventId}/upload`}
           onupdatefiles={(items) => {
             setState(items.map((item) => item.file));
           }}

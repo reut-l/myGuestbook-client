@@ -53,7 +53,7 @@ const MyPosts = ({
                 return (
                   <div className="grid-item" key={i}>
                     <img
-                      src={`http://127.0.0.1:3001/img/posts/${post.image}`}
+                      src={`${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`}
                       alt="post"
                     />
                     {listType === 'myPosts' && renderAdminBtns(post)}

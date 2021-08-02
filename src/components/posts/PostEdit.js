@@ -23,7 +23,7 @@ const PostEdit = ({
     return (
       <CustomImageEditor
         onImageSave={onImageSave}
-        initialImage={`http://127.0.0.1:3001/img/posts/${post.image}`}
+        initialImage={`${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`}
       />
     );
   } else {

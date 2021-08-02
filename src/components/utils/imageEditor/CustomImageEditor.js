@@ -666,7 +666,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
         <div className="menu">
           <span className="button">
             <img
-              src="http://localhost:3000/img/icons/openImage.png"
+              src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/openImage.png`}
               style={{ marginTop: '5px' }}
               alt="open-img"
             />
@@ -680,20 +680,26 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
             className="button disabled"
             ref={(e) => (itemsRef.current['btn-undo'] = e)}
           >
-            <img src="http://localhost:3000/img/icons/undo.png" alt="undo" />
+            <img
+              src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/undo.png`}
+              alt="undo"
+            />
           </button>
           <button
             className="button disabled"
             ref={(e) => (itemsRef.current['btn-redo'] = e)}
           >
-            <img src="http://localhost:3000/img/icons/redo.png" alt="redo" />
+            <img
+              src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/redo.png`}
+              alt="redo"
+            />
           </button>
           <button
             className="button"
             ref={(e) => (itemsRef.current['btn-remove-active-object'] = e)}
           >
             <img
-              src="http://localhost:3000/img/icons/remove.png"
+              src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/remove.png`}
               alt="remove"
             />
           </button>
@@ -718,7 +724,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                 ref={(e) => (itemsRef.current['btn-crop'] = e)}
               >
                 <img
-                  src="http://localhost:3000/img/icons/crop.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/crop.png`}
                   alt="crop"
                 />
               </button>
@@ -731,7 +737,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-apply-crop'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/apply.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/apply.png`}
                         alt="apply"
                       />
                     </button>
@@ -742,7 +748,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
             <li className="menu-item">
               <button className="menu-button">
                 <img
-                  src="http://localhost:3000/img/icons/rotate.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/rotate.png`}
                   alt="rotate"
                 />
               </button>
@@ -757,7 +763,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/rotate-clockwise.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/rotate-clockwise.png`}
                         alt="rotate-clockwise"
                       />
                     </button>
@@ -770,7 +776,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/rotate-counter-clockwise.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/rotate-counter-clockwise.png`}
                         alt="rotate-counter-clockwise"
                       />
                     </button>
@@ -781,7 +787,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-flip-x'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/flip-x.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/flip-x.png`}
                         alt="flip-x"
                       />
                     </button>
@@ -792,7 +798,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-flip-y'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/flip-y.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/flip-y.png`}
                         alt="flip-y"
                       />
                     </button>
@@ -806,7 +812,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                 ref={(e) => (itemsRef.current['btn-draw-line'] = e)}
               >
                 <img
-                  src="http://localhost:3000/img/icons/brush.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/brush.png`}
                   alt="crop"
                 />
               </button>
@@ -819,7 +825,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-free-drawing'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/free-draw.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/free-draw.png`}
                         alt="free-drawing"
                       />
                     </button>
@@ -830,7 +836,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-line-drawing'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/line-draw.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/line-draw.png`}
                         alt="line-drawing"
                       />
                     </button>
@@ -841,7 +847,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-change-size'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/width.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/width.png`}
                         alt="crop"
                       />
                     </button>
@@ -863,7 +869,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/color-circle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/color-circle.png`}
                         alt="color-circle"
                       />
                     </button>
@@ -884,7 +890,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                 ref={(e) => (itemsRef.current['btn-draw-shape'] = e)}
               >
                 <img
-                  src="http://localhost:3000/img/icons/shapes.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/shapes.png`}
                   alt="shapes"
                 />
               </button>
@@ -897,7 +903,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-rect'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/rectangular.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/rectangular.png`}
                         alt="rectangular"
                       />
                     </button>
@@ -908,7 +914,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-square'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/square.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/square.png`}
                         alt="square"
                       />
                     </button>
@@ -919,7 +925,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-ellipse'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/ellipse.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/ellipse.png`}
                         alt="ellipse"
                       />
                     </button>
@@ -930,7 +936,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-circle'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/circle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/circle.png`}
                         alt="circle"
                       />
                     </button>
@@ -941,7 +947,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-triangle'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/triangle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/triangle.png`}
                         alt="triangle"
                       />
                     </button>
@@ -952,7 +958,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-stroke-size'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/width.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/width.png`}
                         alt="width"
                       />
                     </button>
@@ -976,7 +982,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/color-circle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/color-circle.png`}
                         alt="color-circle"
                       />
                     </button>
@@ -1024,7 +1030,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
             <li className="menu-item">
               <button className="menu-button">
                 <img
-                  src="http://localhost:3000/img/icons/star.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/star.png`}
                   alt="star"
                 />
               </button>
@@ -1037,7 +1043,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-arrow-icon'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/arrow.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/arrow.png`}
                         alt="arrow"
                       />
                     </button>
@@ -1048,7 +1054,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-add-cancel-icon'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/cross-sign.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/cross-sign.png`}
                         alt="cross-sign"
                       />
                     </button>
@@ -1061,7 +1067,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/color-circle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/color-circle.png`}
                         alt="color-circle"
                       />
                     </button>
@@ -1082,7 +1088,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                 ref={(e) => (itemsRef.current['btn-add-text'] = e)}
               >
                 <img
-                  src="http://localhost:3000/img/icons/text.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/text.png`}
                   alt="text"
                 />
               </button>
@@ -1095,7 +1101,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-change-size'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/font-size.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/font-size.png`}
                         alt="font-size"
                       />
                     </button>
@@ -1117,7 +1123,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-change-style'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/bold.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/bold.png`}
                         alt="bold"
                       />
                     </button>
@@ -1127,7 +1133,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="bold"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/bold.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/bold.png`}
                           alt="bold"
                         />
                       </button>
@@ -1136,7 +1142,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="italic"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/italic.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/italic.png`}
                           alt="italic"
                         />
                       </button>
@@ -1145,7 +1151,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="underline"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/underline.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/underline.png`}
                           alt="underline"
                         />
                       </button>
@@ -1157,7 +1163,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-change-align'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/align-left.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/align-left.png`}
                         alt="align-left"
                       />
                     </button>
@@ -1167,7 +1173,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="left"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/align-left.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/align-left.png`}
                           alt="align-left"
                         />
                       </button>
@@ -1176,7 +1182,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="center"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/align-center.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/align-center.png`}
                           alt="align-center"
                         />
                       </button>
@@ -1185,7 +1191,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                         data-style-type="right"
                       >
                         <img
-                          src="http://localhost:3000/img/icons/align-right.png"
+                          src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/align-right.png`}
                           alt="align-right"
                         />
                       </button>
@@ -1199,7 +1205,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/color-circle.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/color-circle.png`}
                         alt="color-circle"
                       />
                     </button>
@@ -1217,7 +1223,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
             <li className="menu-item">
               <button className="menu-button">
                 <img
-                  src="http://localhost:3000/img/icons/filter.png"
+                  src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/filter.png`}
                   alt="filter"
                 />
               </button>
@@ -1232,7 +1238,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       }
                     >
                       <img
-                        src="http://localhost:3000/img/icons/grayscale-filter.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/grayscale-filter.png`}
                         alt="grayscale-filter"
                       />
                     </button>
@@ -1243,7 +1249,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-invert-filter'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/invert-filter.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/invert-filter.png`}
                         alt="invert-filter"
                       />
                     </button>
@@ -1254,7 +1260,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-sepia-filter'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/sepia-filter.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/sepia-filter.png`}
                         alt="sepia-filter"
                       />
                     </button>
@@ -1265,7 +1271,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
                       ref={(e) => (itemsRef.current['btn-emboss-filter'] = e)}
                     >
                       <img
-                        src="http://localhost:3000/img/icons/emboss-filter.png"
+                        src={`${process.env.REACT_APP_PUBLIC_URL}/img/icons/emboss-filter.png`}
                         alt="emboss-filter"
                       />
                     </button>
