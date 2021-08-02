@@ -17,7 +17,12 @@ const Welcome = ({ redirected }) => {
         unmountOnExit
         appear
       >
-        <div className="welcome-photo"></div>
+        <div
+          className="welcome-photo"
+          style={{
+            backgroundImage: `url(${process.env.REACT_APP_PUBLIC_URL}/img/openAlbum.png)`,
+          }}
+        ></div>
       </CSSTransition>
       <CSSTransition
         in={true}
