@@ -626,8 +626,9 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
     picturesRef.current.map((elRef) =>
       elRef.addEventListener('click', () => {
         setShowStarterText(false);
-        const imgSource = elRef.src.replace(/^https:\/\//i, 'http://');
-        editorInstance.loadImageFromURL(imgSource, 'photo');
+        // const imgSource = elRef.src.replace(/^https:\/\//i, 'http://');
+        // editorInstance.loadImageFromURL(imgSource, 'photo');
+        editorInstance.loadImageFromURL(elRef.src, 'photo');
       })
     );
   };
