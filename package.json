@@ -36,6 +36,7 @@
     "redux": "^4.1.0",
     "redux-form": "^8.3.7",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.37.0",
     "tui-code-snippet": "^1.5.2",
     "tui-color-picker": "^2.2.7",
     "tui-image-editor": "^3.14.3",
@@ -65,8 +66,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "sass": "^1.37.0"
   }
 }
