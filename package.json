@@ -16,6 +16,7 @@
     "filepond": "^4.27.1",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
     "filepond-plugin-image-preview": "^4.6.6",
+    "html-to-image": "^1.7.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
@@ -48,7 +49,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass" : "sass src/scss:src/css --watch --no-source-map"
+    "sass": "sass src/scss:src/css --watch --no-source-map"
   },
   "eslintConfig": {
     "extends": [

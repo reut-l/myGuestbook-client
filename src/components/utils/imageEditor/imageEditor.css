@@ -38,6 +38,21 @@ input[type='file'] {
   width: 100%;
 }
 
+.image-editor-container .loading-box {
+  position: fixed;
+  top: 50vh;
+  width: fit-content;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  background-color: #26c2ab;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
 .image-editor-pictures-container {
   height: calc((100vh - 40px) * 0.2);
   min-height: 105px;

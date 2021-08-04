@@ -3,8 +3,8 @@ import $ from 'jquery';
 import ImageEditor from 'tui-image-editor';
 import colorPicker from 'tui-color-picker';
 import util from 'tui-code-snippet';
+import { dataURLtoBlob, fetchImageLocalUrl } from './utils';
 import './imageEditor.css';
-import { dataURLtoBlob } from './utils';
 
 const CustomImageEditor = ({ onImageSave, initialImage }) => {
   // Get the pictures that was found previously in the select pictures page
@@ -13,6 +13,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
     : [];
 
   const [showStarterText, setShowStarterText] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const picturesRef = useRef([]);
   const itemsRef = useRef({});
@@ -619,16 +620,27 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
       imageEditor.loadImageFromURL(initialImage, 'post').then(function () {
         imageEditor.clearUndoStack();
       });
-    } else setShowStarterText(true);
+    } else {
+      setShowStarterText(true);
+      imageEditor
+        .loadImageFromURL(
+          `${process.env.REACT_APP_PUBLIC_URL}/img/blankCanvas.png`,
+          'blank'
+        )
+        .then(function () {
+          imageEditor.clearUndoStack();
+        });
+    }
   }, [initialImage, processSaveImage]);
 
   const addListenersToPictures = (editorInstance) => {
     picturesRef.current.map((elRef) =>
-      elRef.addEventListener('click', () => {
+      elRef.addEventListener('click', async () => {
         setShowStarterText(false);
-        // const imgSource = elRef.src.replace(/^https:\/\//i, 'http://');
-        // editorInstance.loadImageFromURL(imgSource, 'photo');
-        editorInstance.loadImageFromURL(elRef.src, 'photo');
+        setLoading(true);
+        const imgUrl = await fetchImageLocalUrl(elRef.src);
+        setLoading(false);
+        if (imgUrl) editorInstance.loadImageFromURL(imgUrl, 'photo');
       })
     );
   };
@@ -715,6 +727,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
       {/* // Image editor area */}
       <div className="tui-image-editor" ref={editorRef}></div>
       {showStarterText && renderStarterText()}
+      {Loading && <div className="loading-box">Loading...</div>}
       {/* // Image editor controls - bottom area */}
       <div className="tui-image-editor-bottom">
         <div className="tui-image-editor-controls">
