@@ -163,6 +163,10 @@ $bg-color-gallery: hsl(272, 25%, 52%);
           border-radius: 0 0 5px 5px;
         }
       }
+
+      &:first-child {
+        padding-right: 10px;
+      }
     }
   }
   &:hover {

@@ -64,8 +64,8 @@ const EventList = ({ itemsArr, title, admin = false }) => {
         </button>
         <div className="item-menu-dropdown-content">
           <Link to={`/events/${eventId}/edit`}>
-            <FontAwesomeIcon icon="cog" className="admin-btn settings-icon" />
-            <span>Settings</span>
+            <FontAwesomeIcon icon="pen" className="admin-btn edit-icon" />
+            <span>Edit</span>
           </Link>
           <Link to={`/events/${eventId}/delete`}>
             <FontAwesomeIcon icon="trash" className="admin-btn delete-icon" />

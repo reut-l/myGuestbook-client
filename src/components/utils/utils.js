@@ -54,3 +54,12 @@ export const verifyCode = async (code, phone) => {
 
   return response.data.data.status === 'approved' ? true : false;
 };
+
+// Send SMSs to all guests of an event
+export const sendSmsToGuests = async (eventId) => {
+  const response = await myGuestBookAPI.get(
+    `/events/${eventId}/sendSmsToGuests`
+  );
+
+  return response.data.status === 'success' ? true : false;
+};

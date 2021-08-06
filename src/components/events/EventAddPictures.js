@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FilePond, registerPlugin } from 'react-filepond';
+import SmsConfirmation from './utils/SmsConfirmation';
 
 import 'filepond/dist/filepond.min.css';
 
@@ -15,27 +16,54 @@ const EventAddPictures = ({
     params: { eventId },
   },
 }) => {
-  const [state, setState] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [uploadCompleted, setUploadCompleted] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const renderInviteBtn = () => {
+    return (
+      <div className="btns-box">
+        <button
+          onClick={() => {
+            setShowConfirmation(true);
+          }}
+          className="btn btn-action btn-large"
+        >
+          Send Invitation SMSs
+        </button>
+      </div>
+    );
+  };
 
   return (
-    <div className="middle-container">
-      <div className="uploadEventPicturesArea">
-        <FilePond
-          files={state}
-          allowMultiple={true}
-          // Uploading the pictures automatically to AWS current event images collection
-          server={`${process.env.REACT_APP_AWS_REKOGNITION_API_URL}/collections/${eventId}/upload`}
-          onupdatefiles={(items) => {
-            setState(items.map((item) => item.file));
-          }}
+    <>
+      {!showConfirmation ? (
+        <div className="middle-container">
+          {uploadCompleted && renderInviteBtn()}
+          <div className="uploadEventPicturesArea">
+            <FilePond
+              files={files}
+              allowMultiple={true}
+              // Uploading the pictures automatically to AWS current event images collection
+              server={`${process.env.REACT_APP_AWS_REKOGNITION_API_URL}/collections/${eventId}/upload`}
+              onupdatefiles={setFiles}
+              onprocessfiles={() => setUploadCompleted(true)}
+              name="photos"
+            />
+          </div>
+          <div className="btns-box">
+            <Link to={`/`} className="btn btn-action">
+              Complete
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <SmsConfirmation
+          eventId={eventId}
+          setShowConfirmation={setShowConfirmation}
         />
-      </div>
-      <div className="btns-box">
-        <Link to={`/`} className="btn btn-action">
-          Complete
-        </Link>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

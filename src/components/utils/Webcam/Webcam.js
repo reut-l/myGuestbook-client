@@ -42,9 +42,7 @@ const Webcam = ({ onCapture, isUploading, error }) => {
       />
       <div>
         <button
-          className={`btn btn-action capture-btn ${
-            uploading ? 'disabled' : ''
-          }`}
+          className={`btn btn-action btn-large ${uploading ? 'disabled' : ''}`}
           variant="contained"
           disabled={uploading}
           onClick={capture}
