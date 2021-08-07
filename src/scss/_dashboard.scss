@@ -104,29 +104,3 @@
     }
   }
 }
-
-.dashboard-container {
-  .helper-box {
-    width: fit-content;
-    position: relative;
-    margin: auto;
-    color: $action-color;
-    text-align: center;
-    left: 3px;
-  }
-
-  .helper-appear {
-    opacity: 0.3;
-    top: 30vh;
-  }
-
-  .helper-appear-active {
-    opacity: 1;
-    top: -10px;
-    transition: all 1500ms ease-out;
-  }
-
-  .helper-enter-done {
-    display: none;
-  }
-}

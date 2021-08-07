@@ -1,0 +1,43 @@
+.guidance-box {
+  width: fit-content;
+  max-width: 230px;
+  position: relative;
+  margin: auto;
+  color: $action-color;
+  text-align: center;
+  left: 3px;
+}
+
+.to-page-header-box {
+  left: -15px;
+}
+
+.guidance-to-page-top-appear {
+  opacity: 0.3;
+  top: 20vh;
+}
+
+.guidance-to-page-top-appear-active {
+  opacity: 1;
+  top: -10px;
+  transition: all 1500ms ease-out;
+}
+
+.guidance-to-page-top-enter-done {
+  display: none;
+}
+
+.guidance-to-page-header-appear {
+  opacity: 0.3;
+  top: 20vh;
+}
+
+.guidance-to-page-header-appear-active {
+  opacity: 1;
+  top: 55px;
+  transition: all 1500ms ease-out;
+}
+
+.guidance-to-page-header-enter-done {
+  display: none;
+}
