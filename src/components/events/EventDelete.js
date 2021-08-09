@@ -51,7 +51,13 @@ const EventDelete = ({
   );
 };
 const mapStateToProps = (state, ownProps) => {
-  return { event: state.events.eventsAsCreator[ownProps.match.params.eventId] };
+  const {
+    match: {
+      params: { eventId },
+    },
+  } = ownProps;
+
+  return { event: state.events.all[eventId] };
 };
 
 export default connect(mapStateToProps, { fetchEvent, deleteEvent })(

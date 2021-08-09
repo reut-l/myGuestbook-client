@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FilePond, registerPlugin } from 'react-filepond';
-import SmsConfirmation from './utils/SmsConfirmation';
+import history from '../../history';
 
 import 'filepond/dist/filepond.min.css';
 
@@ -18,52 +18,43 @@ const EventAddPictures = ({
 }) => {
   const [files, setFiles] = useState([]);
   const [uploadCompleted, setUploadCompleted] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showSmsBtn] = useState(
+    history.location.state ? history.location.state.showSmsBtn : null
+  );
 
   const renderInviteBtn = () => {
     return (
       <div className="btns-box">
-        <button
-          onClick={() => {
-            setShowConfirmation(true);
-          }}
+        <Link
+          to={`/events/${eventId}/sendSms`}
           className="btn btn-action btn-large"
         >
           Send Invitation SMSs
-        </button>
+        </Link>
       </div>
     );
   };
 
   return (
-    <>
-      {!showConfirmation ? (
-        <div className="middle-container">
-          {uploadCompleted && renderInviteBtn()}
-          <div className="uploadEventPicturesArea">
-            <FilePond
-              files={files}
-              allowMultiple={true}
-              // Uploading the pictures automatically to AWS current event images collection
-              server={`${process.env.REACT_APP_AWS_REKOGNITION_API_URL}/collections/${eventId}/upload`}
-              onupdatefiles={setFiles}
-              onprocessfiles={() => setUploadCompleted(true)}
-              name="photos"
-            />
-          </div>
-          <div className="btns-box">
-            <Link to={`/`} className="btn btn-action">
-              Complete
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <SmsConfirmation
-          eventId={eventId}
-          setShowConfirmation={setShowConfirmation}
+    <div className="middle-container">
+      {(uploadCompleted || showSmsBtn) && renderInviteBtn()}
+      <div className="uploadEventPicturesArea">
+        <FilePond
+          files={files}
+          allowMultiple={true}
+          // Uploading the pictures automatically to AWS current event images collection
+          server={`${process.env.REACT_APP_AWS_REKOGNITION_API_URL}/collections/${eventId}/upload`}
+          onupdatefiles={setFiles}
+          onprocessfiles={() => setUploadCompleted(true)}
+          name="photos"
         />
-      )}
-    </>
+      </div>
+      <div className="btns-box">
+        <Link to={`/`} className="btn btn-action">
+          Complete
+        </Link>
+      </div>
+    </div>
   );
 };
 

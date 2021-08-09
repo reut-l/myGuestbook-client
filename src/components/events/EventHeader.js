@@ -5,7 +5,7 @@ import { fetchEvent } from '../../actions';
 import SearchGuests from '../posts/utils/SearchGuests';
 import CreatePostBtn from '../posts/utils/CreatePostBtn';
 
-const EventHeader = ({ eventId, currentEvent, fetchEvent }) => {
+const EventHeader = ({ eventId, event, fetchEvent }) => {
   const [showSearchField, setShowSearchField] = useState(false);
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const EventHeader = ({ eventId, currentEvent, fetchEvent }) => {
     setShowSearchField(!showSearchField);
   };
 
-  if (currentEvent) {
-    const eventName = currentEvent.name;
+  if (event) {
+    const eventName = event.name;
 
     return (
       <div className="event-header">
@@ -39,7 +39,9 @@ const EventHeader = ({ eventId, currentEvent, fetchEvent }) => {
   return null;
 };
 
-const mapStateToProps = (state) => {
-  return { currentEvent: state.events.currentEvent };
+const mapStateToProps = (state, ownProps) => {
+  const { eventId } = ownProps;
+
+  return { event: state.events.all[eventId] };
 };
 export default connect(mapStateToProps, { fetchEvent })(EventHeader);

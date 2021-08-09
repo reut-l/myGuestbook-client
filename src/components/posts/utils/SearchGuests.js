@@ -1,11 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPostsOfEvent } from '../../../actions';
+import {
+  fetchPostsOfEvent,
+  addFilteredEvent,
+  removeFilteredEvent,
+} from '../../../actions';
 import Search from '../../utils/Search';
 
-const SearchGuests = ({ fetchPostsOfEvent, eventId }) => {
+const SearchGuests = ({
+  eventId,
+  fetchPostsOfEvent,
+  addFilteredEvent,
+  removeFilteredEvent,
+}) => {
   // Search all posts of events (when term is not set) or by creator of a post (by his partialy or full name/phone/email)
   const search = (term) => {
+    if (term !== '') {
+      addFilteredEvent(eventId);
+    } else {
+      removeFilteredEvent(eventId);
+    }
     fetchPostsOfEvent(eventId, term);
   };
 
@@ -20,4 +34,8 @@ const SearchGuests = ({ fetchPostsOfEvent, eventId }) => {
   );
 };
 
-export default connect(null, { fetchPostsOfEvent })(SearchGuests);
+export default connect(null, {
+  fetchPostsOfEvent,
+  addFilteredEvent,
+  removeFilteredEvent,
+})(SearchGuests);

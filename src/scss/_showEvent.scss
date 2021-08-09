@@ -97,9 +97,17 @@ $bg-color-gallery: hsl(272, 25%, 52%);
   box-sizing: border-box;
   background-color: $bg-color-gallery;
   padding-top: 8px;
+  height: 402px;
 
   .gallery-action-btns-container {
     height: 40px;
+  }
+
+  .gallery-text {
+    text-align: center;
+    color: #fff;
+    position: relative;
+    top: 100px;
   }
 }
 

@@ -12,6 +12,7 @@ import CreateEventWizardForm from './events/EventCreate/CreateEventWizardForm';
 import EventEdit from './events/EventEdit';
 import EventDelete from './events/EventDelete';
 import EventAddPictures from './events/EventAddPictures';
+import EventSendSms from './events/EventSendSms';
 import PostCreate from './posts/PostCreate';
 import PostEdit from './posts/PostEdit';
 import PostDelete from './posts/PostDelete';
@@ -41,6 +42,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import '../scss/style.scss';
+
 library.add(
   faEye,
   faEyeSlash,
@@ -153,6 +155,12 @@ const App = ({
                   path="/events/:eventId/posts/:postId/delete"
                   exact
                   component={PostDelete}
+                  isLoggedIn={isLoggedIn}
+                />
+                <ProtectedRoute
+                  path="/events/:eventId/sendSms"
+                  exact
+                  component={EventSendSms}
                   isLoggedIn={isLoggedIn}
                 />
                 <Route

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import EventHeader from './EventHeader';
 import EventBody from './EventBody';
@@ -14,8 +14,15 @@ const EventShow = ({
   posts,
   error,
 }) => {
+  const [eventFetched, setEventFetched] = useState(false);
+
   useEffect(() => {
-    fetchEvent(eventId);
+    const asyncUseEffect = async () => {
+      await fetchEvent(eventId);
+      setEventFetched(true);
+    };
+
+    asyncUseEffect();
   }, [eventId, fetchEvent]);
 
   return (
@@ -23,7 +30,7 @@ const EventShow = ({
       <EventHeader eventId={eventId} />
       <EventBody eventId={eventId} />
       {error && <ErrorMessage error={error} />}
-      {posts.length === 0 && (
+      {eventFetched && !posts && (
         <Guidance
           text="Be the first to create a page"
           icon="hand-pointer"
@@ -34,9 +41,17 @@ const EventShow = ({
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const {
+    match: {
+      params: { eventId },
+    },
+  } = ownProps;
+
   return {
-    posts: Object.values(state.posts.postsOfCurrentEvent),
+    posts: state.posts.allByEvent[eventId]
+      ? Object.values(state.posts.allByEvent[eventId])
+      : null,
     error: state.errors.validation.showEvent,
   };
 };

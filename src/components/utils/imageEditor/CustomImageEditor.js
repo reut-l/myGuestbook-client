@@ -17,7 +17,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
 
   const picturesRef = useRef([]);
   const itemsRef = useRef({});
-  const editorRef = useRef(null);
+  const imageEditorRef = useRef(null);
 
   const processSaveImage = useCallback(
     (editorInstance) => {
@@ -28,7 +28,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
   );
 
   useEffect(() => {
-    ////After the page is rendered: select the different elements (using jQuery) and add all the listeners, including creating listeners to the user pictures and creating the TUI Image editor instance and adding its listeners////
+    ////After the page is rendered: select the different elements (using jQuery) and add all the listeners, including creating listeners to the user's pictures,  creating the TUI Image editor instance and adding its listeners////
 
     var MAX_RESOLUTION = 3264 * 2448; // 8MP (Mega Pixel)
 
@@ -121,7 +121,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
     });
 
     // Create image editor
-    var imageEditor = new ImageEditor('.tui-image-editor', {
+    var imageEditor = new ImageEditor(imageEditorRef.current, {
       cssMaxWidth: document.documentElement.clientWidth,
       cssMaxHeight: document.documentElement.clientHeight,
       selectionStyle: {
@@ -663,7 +663,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
   return (
     <div className="image-editor-container">
       <div className="image-editor-pictures-container">
-        <div className="images-box">
+        <div className="images-box scrollable">
           {pictures.map((el, i) => (
             <img
               src={el.location}
@@ -725,7 +725,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
         </div>
       </div>
       {/* // Image editor area */}
-      <div className="tui-image-editor" ref={editorRef}></div>
+      <div className="tui-image-editor" ref={imageEditorRef}></div>
       {showStarterText && renderStarterText()}
       {Loading && <div className="loading-box">Loading...</div>}
       {/* // Image editor controls - bottom area */}

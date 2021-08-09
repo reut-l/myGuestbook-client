@@ -33,8 +33,8 @@ input[type='file'] {
 } */
 .image-editor-container {
   position: fixed;
-  height: calc(100vh - 40px);
-  top: 40px;
+  height: calc(100vh - 52px);
+  top: 50px;
   width: 100%;
 }
 
@@ -51,26 +51,40 @@ input[type='file'] {
   background-color: #26c2ab;
   padding: 8px 10px;
   border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .image-editor-pictures-container {
-  height: calc((100vh - 40px) * 0.2);
-  min-height: 105px;
+  height: fit-content;
   background-color: #000;
+  text-align: center;
 }
 
-.image-editor-pictures-container .images-box {
+/* .image-editor-pictures-container .images-box {
   width: fit-content;
   position: relative;
   margin: auto;
   padding: 8px;
+} */
+
+.image-editor-pictures-container .scrollable {
+  display: inline-block;
+  overflow-x: auto;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  font-size: 0;
+  background-color: #000;
+  vertical-align: middle;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .image-editor-pictures-container .images-box img {
   height: calc((100vh - 50px) * 0.2 - 15px);
   min-height: 90px;
   display: inline-block;
-  margin: 10px;
+  margin-right: 12px;
 }
 
 .tui-image-editor-header {
@@ -125,15 +139,15 @@ input[type='file'] {
   border: 1px solid #666;
   margin: 10px auto 0px;
   position: inherit !important;
-  top: calc((100vh - 40px) * 0.1);
+  top: calc((100vh - 52px) * 0.15);
 }
 
 .tui-image-editor-canvas-container,
 .tui-image-editor-canvas-container .lower-canvas,
 .tui-image-editor-canvas-container .upper-canvas {
   overflow: hidden;
-  height: calc((100vh - 40px) * 0.42) !important;
-  width: calc((100vh - 40px) * 0.42 * 4 / 3) !important;
+  height: calc((100vh - 52px) * 0.42) !important;
+  width: calc((100vh - 52px) * 0.42 * 4 / 3) !important;
 }
 
 .tui-image-editor-bottom {
@@ -158,6 +172,7 @@ input[type='file'] {
   background-color: #000;
   vertical-align: middle;
 }
+
 .tui-image-editor-controls .no-scrollable {
   overflow-x: hidden;
 }

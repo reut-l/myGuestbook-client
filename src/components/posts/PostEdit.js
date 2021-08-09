@@ -19,7 +19,7 @@ const PostEdit = ({
     updatePostImage(blob, postId, eventId);
   };
 
-  if (post) {
+  if (post !== null) {
     return (
       <CustomImageEditor
         onImageSave={onImageSave}
@@ -31,9 +31,16 @@ const PostEdit = ({
   }
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const {
+    match: {
+      params: { eventId, postId },
+    },
+  } = ownProps;
+
   return {
-    post: state.posts.currentPost,
+    post:
+      state.posts.allByEvent[eventId][postId] || state.posts.myPosts[postId],
   };
 };
 

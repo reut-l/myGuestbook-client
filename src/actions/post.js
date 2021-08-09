@@ -49,7 +49,10 @@ export const fetchPostsOfEvent =
       _.omit(e, ['likes'])
     );
 
-    dispatch({ type: FETCH_POSTS_EVENT, payload: filteredResponse });
+    dispatch({
+      type: FETCH_POSTS_EVENT,
+      payload: { posts: filteredResponse, eventId },
+    });
   };
 
 // Fetch current user's posts
@@ -108,7 +111,7 @@ export const updatePostImage =
 export const deletePost = (postId, eventId) => async (dispatch) => {
   await myGuestBookAPI.delete(`/posts/${postId}`);
 
-  dispatch({ type: DELETE_POST, payload: postId });
+  dispatch({ type: DELETE_POST, payload: { postId, eventId } });
   history.push(`/events/${eventId}`);
 };
 

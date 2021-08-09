@@ -4,7 +4,13 @@ import IconLink from '../../utils/IconLink';
 import { updateMe } from '../../../actions';
 import { checkIsGuest } from '../../utils/utils';
 
-const CreatePostBtn = ({ eventId, user, eventsAsGuest, updateMe }) => {
+const CreatePostBtn = ({
+  eventId,
+  user,
+  eventsAsGuest,
+  eventsAsCreator,
+  updateMe,
+}) => {
   const [isGuest, setIsGuest] = useState(null);
 
   useEffect(() => {
@@ -22,15 +28,19 @@ const CreatePostBtn = ({ eventId, user, eventsAsGuest, updateMe }) => {
       setIsGuest(false);
     };
 
-    // Check if current user is a guest of the current event
+    // Check if current user is a guest or creator of the current event
     if (user) {
-      // A) First check if already updated in the redux state that he is a guest
-      if (eventsAsGuest && eventsAsGuest.includes(eventId)) setIsGuest(true);
+      // A) First check if already updated in the redux state that he is a guest or if he is the creator
+      if (
+        (eventsAsGuest && eventsAsGuest.includes(eventId)) ||
+        (eventsAsCreator && eventsAsCreator.includes(eventId))
+      )
+        setIsGuest(true);
 
-      // B) If not, check it with the DB and update redux state accordingly
+      // B) If he is not a guest or the creator, check if he is a guest with the DB and update redux state accordingly
       if (isGuest === null) asyncUseEffect();
     }
-  }, [user, eventId, eventsAsGuest, updateMe, isGuest]);
+  }, [user, eventId, eventsAsGuest, eventsAsCreator, updateMe, isGuest]);
 
   // If current user is a guest, than will be directed directly to create post page
   if (isGuest === true)
@@ -57,7 +67,8 @@ const CreatePostBtn = ({ eventId, user, eventsAsGuest, updateMe }) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth.user ? state.auth.user : null,
-    eventsAsGuest: Object.values(state.events.eventsAsGuest),
+    eventsAsGuest: Object.keys(state.events.eventsAsGuest),
+    eventsAsCreator: Object.keys(state.events.eventsAsCreator),
   };
 };
 

@@ -16,7 +16,7 @@ const validate = (values) => {
   }
   if (!values.guestsPhones) {
     errors.guestsPhones = 'Required';
-  } else {
+  } else if (!Array.isArray(values.guestsPhones)) {
     // Convert the free text phones list to an array
     const guestsPhonesStr = values.guestsPhones.trim();
     const phonesArr = guestsPhonesStr.split(/[\s,]+/);

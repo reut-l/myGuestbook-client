@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CSSTransition } from 'react-transition-group';
 
 const Search = ({ search, placeholder, iconClass }) => {
   const [term, setTerm] = useState('');
@@ -33,17 +32,9 @@ const Search = ({ search, placeholder, iconClass }) => {
           placeholder={`${placeholder}...`}
         />
       </div>
-      <CSSTransition
-        in={true}
-        timeout={5000}
-        classNames="search-field-msg-transition"
-        unmountOnExit
-        appear
-      >
-        <div className="search-msg">
-          Try searching by name, phone or even email
-        </div>
-      </CSSTransition>
+      <div className="search-msg">
+        Try searching by name, phone or even email
+      </div>
     </div>
   );
 };

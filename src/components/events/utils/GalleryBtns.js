@@ -13,7 +13,6 @@ const GalleryBtns = ({
   eventId,
   currentPostId,
   user,
-  myEvents,
   myPosts,
   myLikedPosts,
   fetchMyPosts,
@@ -36,8 +35,6 @@ const GalleryBtns = ({
   };
 
   const renderAdminBtns = () => {
-    if (!myEvents.includes(eventId)) return;
-
     if (myPosts.includes(currentPostId)) {
       return (
         <div className="img-menu-dropdown">
@@ -78,8 +75,6 @@ const GalleryBtns = ({
   };
 
   const renderLikeBtn = () => {
-    if (!myEvents.includes(eventId)) return;
-
     if (!myPosts.includes(currentPostId)) {
       if (!myLikedPosts.includes(currentPostId))
         return (
@@ -107,12 +102,16 @@ const GalleryBtns = ({
     }
   };
 
-  return (
-    <div className="gallery-action-btns-container">
-      {myEvents && myPosts && renderAdminBtns()}
-      {myEvents && myLikedPosts && renderLikeBtn()}
-    </div>
-  );
+  if (user) {
+    return (
+      <div className="gallery-action-btns-container">
+        {myPosts && renderAdminBtns()}
+        {myLikedPosts && renderLikeBtn()}
+      </div>
+    );
+  }
+
+  return null;
 };
 
 const mapStateToProps = (state) => {
@@ -120,9 +119,6 @@ const mapStateToProps = (state) => {
     user: state.auth.user ? state.auth.user._id : null,
     myPosts: Object.keys(state.posts.myPosts),
     myLikedPosts: Object.keys(state.posts.myLikedPosts),
-    myEvents: Object.keys(state.events.eventsAsCreator).concat(
-      Object.keys(state.events.eventsAsGuest)
-    ),
   };
 };
 

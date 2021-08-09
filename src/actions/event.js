@@ -5,6 +5,8 @@ import {
   CREATE_EVENT,
   EDIT_EVENT,
   DELETE_EVENT,
+  ADD_FILTERED_EVENT,
+  REMOVE_FILTERED_EVENT,
   SHOW_EVENT_FAIL,
   GENERAL_ERROR,
 } from './types';
@@ -62,9 +64,10 @@ export const createEvent = (formValues) => async (dispatch, getState) => {
 
     dispatch({ type: CREATE_EVENT, payload: response.data.data.data });
 
-    dispatch(
-      updateImageCover(formValues.imageCover, response.data.data.data._id)
-    );
+    if (formValues.imageCover)
+      dispatch(
+        updateImageCover(formValues.imageCover, response.data.data.data._id)
+      );
     history.push(`/events/${response.data.data.data._id}/edit`);
   } catch (error) {
     dispatch({ type: GENERAL_ERROR });
@@ -81,9 +84,10 @@ export const editEvent = (formValues, eventId) => async (dispatch) => {
 
     dispatch({ type: EDIT_EVENT, payload: response.data.data.data });
 
-    dispatch(
-      updateImageCover(formValues.imageCover, response.data.data.data._id)
-    );
+    if (formValues.imageCover)
+      dispatch(
+        updateImageCover(formValues.imageCover, response.data.data.data._id)
+      );
     history.push('/');
   } catch (error) {
     dispatch({ type: GENERAL_ERROR });
@@ -112,4 +116,12 @@ export const deleteEvent = (eventId) => async (dispatch) => {
 
   dispatch({ type: DELETE_EVENT, payload: eventId });
   history.push('/');
+};
+
+export const addFilteredEvent = (eventId) => (dispatch) => {
+  dispatch({ type: ADD_FILTERED_EVENT, payload: eventId });
+};
+
+export const removeFilteredEvent = (eventId) => (dispatch) => {
+  dispatch({ type: REMOVE_FILTERED_EVENT, payload: eventId });
 };

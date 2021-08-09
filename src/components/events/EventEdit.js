@@ -255,11 +255,17 @@ const EventEdit = ({
   return null;
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const {
+    match: {
+      params: { eventId },
+    },
+  } = ownProps;
+
   return {
-    event: state.events.currentEvent,
+    event: state.events.all[eventId],
     initialValues: _.pick(
-      state.events.currentEvent,
+      state.events.all[eventId],
       'name',
       'date',
       'timeOfDay',
