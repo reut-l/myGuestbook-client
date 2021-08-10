@@ -16,7 +16,6 @@ const EventHeader = ({
   const [eventFetched, setEventFetched] = useState(false);
 
   useEffect(() => {
-    console.log(eventFetched);
     const asyncUseEffect = async () => {
       if (!eventsUserCreated.includes(eventId)) {
         await fetchEvent(eventId);
