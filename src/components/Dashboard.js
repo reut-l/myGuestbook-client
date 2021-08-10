@@ -41,7 +41,6 @@ const Dashboard = ({ eventsAsCreator, eventsAsGuest, checkIsLoggedIn }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
     eventsAsCreator: Object.values(state.events.eventsAsCreator),
     eventsAsGuest: Object.values(state.events.eventsAsGuest),
   };

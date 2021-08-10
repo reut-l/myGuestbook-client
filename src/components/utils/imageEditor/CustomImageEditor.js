@@ -3,6 +3,7 @@ import $ from 'jquery';
 import ImageEditor from 'tui-image-editor';
 import colorPicker from 'tui-color-picker';
 import util from 'tui-code-snippet';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { dataURLtoBlob, fetchImageLocalUrl } from './utils';
 import './imageEditor.css';
 
@@ -14,6 +15,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
 
   const [showStarterText, setShowStarterText] = useState(false);
   const [Loading, setLoading] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   const picturesRef = useRef([]);
   const itemsRef = useRef({});
@@ -29,6 +31,7 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
 
   useEffect(() => {
     ////After the page is rendered: select the different elements (using jQuery) and add all the listeners, including creating listeners to the user's pictures,  creating the TUI Image editor instance and adding its listeners////
+    if (initialized) return;
 
     var MAX_RESOLUTION = 3264 * 2448; // 8MP (Mega Pixel)
 
@@ -617,8 +620,11 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
     addListenersToPictures(imageEditor);
 
     if (initialImage) {
+      console.log(initialImage);
+
       imageEditor.loadImageFromURL(initialImage, 'post').then(function () {
         imageEditor.clearUndoStack();
+        setInitialized(true);
       });
     } else {
       setShowStarterText(true);
@@ -629,9 +635,10 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
         )
         .then(function () {
           imageEditor.clearUndoStack();
+          setInitialized(true);
         });
     }
-  }, [initialImage, processSaveImage]);
+  }, [initialImage, initialized, processSaveImage]);
 
   const addListenersToPictures = (editorInstance) => {
     picturesRef.current.map((elRef) =>
@@ -725,7 +732,36 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
         </div>
       </div>
       {/* // Image editor area */}
-      <div className="tui-image-editor" ref={imageEditorRef}></div>
+      <TransformWrapper initialScale={1}>
+        {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+          <>
+            <TransformComponent>
+              <div className="tui-image-editor" ref={imageEditorRef}></div>
+            </TransformComponent>
+            <div className="tools">
+              <button
+                onClick={() => zoomIn()}
+                className="btn btn-action transform-btn"
+              >
+                +
+              </button>
+              <button
+                onClick={() => zoomOut()}
+                className="btn btn-action transform-btn"
+              >
+                -
+              </button>
+              <button
+                onClick={() => resetTransform()}
+                className="btn btn-action transform-btn"
+              >
+                x
+              </button>
+            </div>
+          </>
+        )}
+      </TransformWrapper>
+
       {showStarterText && renderStarterText()}
       {Loading && <div className="loading-box">Loading...</div>}
       {/* // Image editor controls - bottom area */}
@@ -1300,4 +1336,4 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
   );
 };
 
-export default CustomImageEditor;
+export default React.memo(CustomImageEditor);

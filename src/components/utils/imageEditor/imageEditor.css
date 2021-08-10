@@ -129,17 +129,32 @@ input[type='file'] {
 }
 .tui-image-editor {
   background-color: #fff;
-  height: calc(100vh - 40px);
-  top: -50px;
-  position: relative !important;
+  top: 40px;
+  position: relative;
   z-index: -1;
+  height: calc((100vh - 52px) * 0.42);
+  width: calc((100vh - 52px) * 0.42 * 4 / 3);
+  margin: auto;
 }
 
 .tui-image-editor-canvas-container {
   border: 1px solid #666;
-  margin: 10px auto 0px;
-  position: inherit !important;
-  top: calc((100vh - 52px) * 0.15);
+  margin: 0 auto;
+}
+.react-transform-wrapper {
+  position: relative;
+  top: 20px;
+  margin: auto;
+}
+.tools {
+  position: relative;
+  top: 30px;
+  margin: auto;
+  width: fit-content;
+}
+.transform-btn {
+  font-size: 1.3rem;
+  width: 50px;
 }
 
 .tui-image-editor-canvas-container,

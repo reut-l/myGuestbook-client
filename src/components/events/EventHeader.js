@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { fetchEvent } from '../../actions';
+import { fetchEvent, fetchMyEvent } from '../../actions';
 import SearchGuests from '../posts/utils/SearchGuests';
 import CreatePostBtn from '../posts/utils/CreatePostBtn';
 
-const EventHeader = ({ eventId, event, fetchEvent }) => {
+const EventHeader = ({
+  eventId,
+  eventsUserCreated,
+  event,
+  fetchEvent,
+  fetchMyEvent,
+}) => {
   const [showSearchField, setShowSearchField] = useState(false);
+  const [eventFetched, setEventFetched] = useState(false);
 
   useEffect(() => {
-    fetchEvent(eventId);
-  }, [eventId, fetchEvent]);
+    console.log(eventFetched);
+    const asyncUseEffect = async () => {
+      if (!eventsUserCreated.includes(eventId)) {
+        await fetchEvent(eventId);
+      } else {
+        await fetchMyEvent(eventId);
+      }
+      setEventFetched(true);
+    };
+
+    if (!eventFetched) asyncUseEffect();
+  }, [eventId, eventsUserCreated, fetchEvent, fetchMyEvent, eventFetched]);
 
   const toggleSearchField = () => {
     setShowSearchField(!showSearchField);
@@ -42,6 +59,11 @@ const EventHeader = ({ eventId, event, fetchEvent }) => {
 const mapStateToProps = (state, ownProps) => {
   const { eventId } = ownProps;
 
-  return { event: state.events.all[eventId] };
+  return {
+    eventsUserCreated: Object.keys(state.events.eventsAsCreator),
+    event: state.events.all[eventId],
+  };
 };
-export default connect(mapStateToProps, { fetchEvent })(EventHeader);
+export default connect(mapStateToProps, { fetchEvent, fetchMyEvent })(
+  EventHeader
+);

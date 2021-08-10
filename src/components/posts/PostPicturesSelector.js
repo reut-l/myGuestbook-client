@@ -53,10 +53,16 @@ const PostPicturesSelector = ({
   // Use AWS Rekognition API to find pictures that the user is in (after taking his own picture in the Webcam)
   const processImage = async (blob) => {
     setUploading(true);
-    const { success, data } = await recognizeMe(blob, eventId);
+    const { success, data, message } = await recognizeMe(blob, eventId);
     if (!success) {
       return setError(
         'Oops, something went wrong... \nplease try again later or skip'
+      );
+    }
+
+    if (success && message === 'Empty event') {
+      return setError(
+        "This event doesn't have pictures yet. \nPlease try again later!"
       );
     }
 

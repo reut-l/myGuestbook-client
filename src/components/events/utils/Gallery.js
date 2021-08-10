@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -12,23 +12,19 @@ const Gallery = ({
   fetchPostsOfEvent,
 }) => {
   const [images, setImages] = useState([]);
+  const galleryRef = useRef(null);
 
   // Render function for each gallery page
-  const myRenderItem = useCallback(
-    (post, i) => {
-      return (
-        <div key={i}>
-          <GalleryBtns eventId={eventId} currentPostId={post._id} />
-          <img
-            src={`${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`}
-            alt="event_post"
-            className="gallery-img"
-          />
-        </div>
-      );
-    },
-    [eventId]
-  );
+  const myRenderItem = useCallback((post, i) => {
+    return (
+      <img
+        src={`${process.env.REACT_APP_SERVER_URL}/img/posts/${post.image}`}
+        alt="event_post"
+        className="gallery-img"
+        key={i}
+      />
+    );
+  }, []);
 
   // Function to update images and their rendered pages, memoized.
   const updateImages = useCallback(() => {
@@ -48,14 +44,29 @@ const Gallery = ({
   }, [eventId, fetchPostsOfEvent]);
 
   useEffect(() => {
-    if (posts) {
-      updateImages();
-    }
+    if (posts) updateImages();
   }, [posts, updateImages]);
 
+  const renderCustomControls = () => {
+    if (galleryRef.current && posts.length > 0) {
+      const slideIndex = galleryRef.current.getCurrentIndex();
+      return (
+        <GalleryBtns eventId={eventId} currentPostId={posts[slideIndex]._id} />
+      );
+    }
+  };
   if (images.length > 0)
-    return <ImageGallery items={images} additionalClass="gallery" />;
-
+    return (
+      <div>
+        <ImageGallery
+          items={images}
+          additionalClass="gallery"
+          ref={galleryRef}
+          // onSlide={setCurrentIndex}
+          renderCustomControls={renderCustomControls}
+        />
+      </div>
+    );
   if (currentEventIsFiltered)
     return (
       <div className="gallery">

@@ -96,11 +96,16 @@ $bg-color-gallery: hsl(272, 25%, 52%);
   border: 2px solid $bg-color-gallery;
   box-sizing: border-box;
   background-color: $bg-color-gallery;
-  padding-top: 8px;
+  padding-top: 40px;
   height: 402px;
 
   .gallery-action-btns-container {
     height: 40px;
+    position: absolute;
+    top: -30px;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .gallery-text {

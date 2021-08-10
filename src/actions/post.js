@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import myGuestBookAPI from '../apis/appServer';
 import {
   FETCH_POST,
@@ -45,13 +44,13 @@ export const fetchPostsOfEvent =
     );
 
     // Cleaning the posts in the response from likes array
-    const filteredResponse = response.data.data.data.map((e) =>
-      _.omit(e, ['likes'])
-    );
+    // const filteredResponse = response.data.data.data.map((e) =>
+    //   _.omit(e, ['likes'])
+    // );
 
     dispatch({
       type: FETCH_POSTS_EVENT,
-      payload: { posts: filteredResponse, eventId },
+      payload: { posts: response.data.data.data, eventId },
     });
   };
 

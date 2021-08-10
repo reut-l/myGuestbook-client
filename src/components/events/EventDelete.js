@@ -3,19 +3,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 import history from '../../history';
-import { fetchEvent, deleteEvent } from '../../actions';
+import { fetchMyEvent, deleteEvent } from '../../actions';
 
 const EventDelete = ({
   event,
-  fetchEvent,
+  fetchMyEvent,
   deleteEvent,
   match: {
     params: { eventId },
   },
 }) => {
   useEffect(() => {
-    fetchEvent(eventId);
-  }, [eventId, fetchEvent]);
+    fetchMyEvent(eventId);
+  }, [eventId, fetchMyEvent]);
 
   // Action buttens render function
   const renderActions = () => {
@@ -60,6 +60,6 @@ const mapStateToProps = (state, ownProps) => {
   return { event: state.events.all[eventId] };
 };
 
-export default connect(mapStateToProps, { fetchEvent, deleteEvent })(
+export default connect(mapStateToProps, { fetchMyEvent, deleteEvent })(
   EventDelete
 );
