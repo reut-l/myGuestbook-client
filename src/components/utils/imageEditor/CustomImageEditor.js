@@ -620,8 +620,6 @@ const CustomImageEditor = ({ onImageSave, initialImage }) => {
     addListenersToPictures(imageEditor);
 
     if (initialImage) {
-      console.log(initialImage);
-
       imageEditor.loadImageFromURL(initialImage, 'post').then(function () {
         imageEditor.clearUndoStack();
         setInitialized(true);

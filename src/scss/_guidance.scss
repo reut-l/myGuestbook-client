@@ -15,6 +15,7 @@
 .guidance-to-page-top-appear {
   opacity: 0.3;
   top: 20vh;
+  top: calc(var(--vh, 1vh) * 20);
 }
 
 .guidance-to-page-top-appear-active {
@@ -30,6 +31,7 @@
 .guidance-to-page-header-appear {
   opacity: 0.3;
   top: 20vh;
+  top: calc(var(--vh, 1vh) * 20);
 }
 
 .guidance-to-page-header-appear-active {

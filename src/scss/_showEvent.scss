@@ -102,7 +102,7 @@ $bg-color-gallery: hsl(272, 25%, 52%);
   .gallery-action-btns-container {
     height: 40px;
     position: absolute;
-    top: -30px;
+    top: -35px;
     z-index: 1;
     left: 50%;
     transform: translateX(-50%);
@@ -252,6 +252,7 @@ $bg-color-gallery: hsl(272, 25%, 52%);
 
   &.fullscreen-modal {
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     background-color: $bg-color-gallery;
   }
 }

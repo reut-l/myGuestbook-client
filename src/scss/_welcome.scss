@@ -1,5 +1,6 @@
 .welcome-container {
   height: 80vh;
+  height: calc(var(--vh, 1vh) * 80);
   width: 100%;
   left: 0;
   overflow: hidden;
@@ -60,6 +61,7 @@
 
 .welcome-text-transition-appear {
   top: 35vh;
+  height: calc(var(--vh, 1vh) * 35);
   opacity: 0;
 }
 

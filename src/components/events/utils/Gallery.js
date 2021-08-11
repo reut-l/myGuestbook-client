@@ -5,6 +5,8 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import GalleryBtns from './GalleryBtns';
 import { fetchPostsOfEvent } from '../../../actions';
 
+// const MemoImageGallery = React.memo(ImageGallery);
+
 const Gallery = ({
   eventId,
   posts,
@@ -12,6 +14,7 @@ const Gallery = ({
   fetchPostsOfEvent,
 }) => {
   const [images, setImages] = useState([]);
+  const [slideIndex, setSlideIndex] = useState(0);
   const galleryRef = useRef(null);
 
   // Render function for each gallery page
@@ -49,12 +52,17 @@ const Gallery = ({
 
   const renderCustomControls = () => {
     if (galleryRef.current && posts.length > 0) {
-      const slideIndex = galleryRef.current.getCurrentIndex();
       return (
         <GalleryBtns eventId={eventId} currentPostId={posts[slideIndex]._id} />
       );
     }
   };
+
+  const setIndex = () => {
+    const index = galleryRef.current.getCurrentIndex();
+    setSlideIndex(index);
+  };
+
   if (images.length > 0)
     return (
       <div>
@@ -62,8 +70,9 @@ const Gallery = ({
           items={images}
           additionalClass="gallery"
           ref={galleryRef}
-          // onSlide={setCurrentIndex}
           renderCustomControls={renderCustomControls}
+          startIndex={slideIndex}
+          onSlide={setIndex}
         />
       </div>
     );
@@ -90,6 +99,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchPostsOfEvent })(
-  React.memo(Gallery)
-);
+export default connect(mapStateToProps, { fetchPostsOfEvent })(Gallery);
