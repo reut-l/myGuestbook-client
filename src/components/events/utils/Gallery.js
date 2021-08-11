@@ -51,7 +51,7 @@ const Gallery = ({
   }, [posts, updateImages]);
 
   const renderCustomControls = () => {
-    if (galleryRef.current && posts.length > 0) {
+    if (galleryRef.current && posts && posts.length > 0) {
       return (
         <GalleryBtns eventId={eventId} currentPostId={posts[slideIndex]._id} />
       );

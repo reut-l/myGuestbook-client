@@ -36,7 +36,7 @@ const EventShow = ({
       <EventHeader eventId={eventId} />
       <EventBody eventId={eventId} />
       {error && <ErrorMessage error={error} />}
-      {eventFetched && posts.length === 0 && (
+      {eventFetched && posts && posts.length === 0 && (
         <Guidance
           text="Be the first to create a page"
           icon="hand-pointer"
